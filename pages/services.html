@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Alan's full range of dance classes — Ballet, Contemporary, Hip Hop, Jazz, Latin, Kids and more.">
+  <title>Services — Alan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Dancing+Script:wght@400..700&family=Cairo:wght@300..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/rtl.css">
+  <style>
+    .page-hero{position:relative;padding:180px 0 100px;overflow:hidden;text-align:center}
+    .page-hero__bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,70,193,.9),rgba(26,32,44,.95),rgba(255,107,107,.7));background-size:300% 300%;animation:gradientShift 12s ease infinite}
+    .page-hero__content{position:relative;z-index:1}
+    .page-hero__breadcrumb{display:flex;align-items:center;justify-content:center;gap:var(--space-2);font-size:var(--font-size-sm);color:rgba(255,255,255,.6);margin-bottom:var(--space-4)}
+    .page-hero__breadcrumb a{color:rgba(255,255,255,.8);text-decoration:none}
+    .page-hero__title{font-size:clamp(2.5rem,5vw,4rem);color:white;margin-bottom:var(--space-4)}
+    .page-hero__desc{font-size:var(--font-size-lg);color:rgba(255,255,255,.7);max-width:600px;margin:0 auto}
+
+    /* FILTER TABS */
+    .filter-section{background:var(--bg-primary)}
+    .filter-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-12)}
+    .filter-btn{padding:var(--space-2) var(--space-6);font-family:var(--font-body);font-size:var(--font-size-sm);font-weight:var(--font-weight-medium);color:var(--text-tertiary);background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:var(--radius-full);cursor:pointer;transition:all .3s ease}
+    .filter-btn:hover,.filter-btn.active{background:var(--color-primary);color:white;border-color:var(--color-primary)}
+
+    /* SERVICE GRID */
+    .services-grid2{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8)}
+    .service-card2{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);overflow:hidden;transition:all .4s ease}
+    .service-card2:hover{transform:translateY(-8px);box-shadow:var(--shadow-xl);border-color:rgba(var(--color-primary-rgb),.3)}
+    .service-card2__image{position:relative;aspect-ratio:16/10;overflow:hidden}
+    .service-card2__image img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    .service-card2:hover .service-card2__image img{transform:scale(1.05)}
+    .service-card2__image-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5),transparent 50%);opacity:0;transition:opacity .3s ease;display:flex;align-items:flex-end;padding:var(--space-4)}
+    .service-card2:hover .service-card2__image-overlay{opacity:1}
+    .service-card2__badge{position:absolute;top:var(--space-3);inset-inline-start:var(--space-3);padding:var(--space-1) var(--space-3);background:var(--color-primary);color:white;font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);border-radius:var(--radius-full);z-index:1}
+    .service-card2__body{padding:var(--space-6)}
+    .service-card2__category{font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold);color:var(--color-accent);text-transform:uppercase;letter-spacing:var(--letter-spacing-wider);margin-bottom:var(--space-2)}
+    .service-card2__title{font-size:var(--font-size-xl);margin-bottom:var(--space-2)}
+    .service-card2__text{font-size:var(--font-size-sm);color:var(--text-tertiary);margin-bottom:var(--space-4)}
+    .service-card2__meta{display:flex;align-items:center;justify-content:space-between;padding-top:var(--space-4);border-top:1px solid var(--border-color)}
+    .service-card2__meta-item{display:flex;align-items:center;gap:var(--space-2);font-size:var(--font-size-xs);color:var(--text-tertiary)}
+    .service-card2__meta-item i{color:var(--color-primary)}
+    .service-card2__price{font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);color:var(--color-primary)}
+
+    /* EXPANDABLE DETAIL */
+    .service-card2__detail{max-height:0;overflow:hidden;transition:max-height .5s ease,padding .5s ease}
+    .service-card2.expanded .service-card2__detail{max-height:200px;padding:0 var(--space-6) var(--space-6)}
+    .service-card2__detail-inner{padding-top:var(--space-4);border-top:1px solid var(--border-color);font-size:var(--font-size-sm);color:var(--text-secondary)}
+
+    /* PROCESS */
+    .process-section{background:var(--bg-secondary)}
+    .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);position:relative}
+    .process-step{text-align:center;padding:var(--space-6);position:relative}
+    .process-step::after{content:'';position:absolute;top:50px;inset-inline-start:calc(50% + 40px);width:calc(100% - 80px);height:2px;background:var(--border-color);z-index:0}
+    .process-step:last-child::after{display:none}
+    .process-step__number{width:60px;height:60px;margin:0 auto var(--space-4);border-radius:50%;background:var(--gradient-primary);color:white;font-size:var(--font-size-xl);font-weight:var(--font-weight-black);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;box-shadow:var(--shadow-glow)}
+    .process-step__title{font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .process-step__text{font-size:var(--font-size-sm);color:var(--text-tertiary)}
+
+    /* CTA BANNER */
+    .cta-banner{background:var(--gradient-primary);padding:var(--space-16) 0;text-align:center}
+    .cta-banner__title{font-size:var(--font-size-3xl);color:white;margin-bottom:var(--space-4)}
+    .cta-banner__text{font-size:var(--font-size-lg);color:rgba(255,255,255,.8);margin-bottom:var(--space-8);max-width:600px;margin-inline:auto}
+
+    @media(max-width:1024px){.services-grid2{grid-template-columns:repeat(2,1fr)}.process-grid{grid-template-columns:repeat(2,1fr)}.process-step::after{display:none}}
+    @media(max-width:768px){.services-grid2{grid-template-columns:1fr}.process-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="custom-cursor"></div><div class="scroll-progress"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="../index.html" class="navbar__logo">
+          <div class="navbar__logo-icon"><i class="fas fa-music"></i></div>
+          <div class="navbar__logo-text"><span>Alan</span></div>
+        </a>
+        
+        <ul class="navbar__menu">
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Home <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="../index.html" class="navbar__dropdown-item">Home 1</a></li>
+              <li><a href="home-2.html" class="navbar__dropdown-item">Home 2</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="about.html" class="navbar__link">About</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Services <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="services.html" class="navbar__dropdown-item">Services</a></li>
+              <li><a href="service-detail.html" class="navbar__dropdown-item">Service Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Blog <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="blog.html" class="navbar__dropdown-item">Blogs</a></li>
+              <li><a href="blog-detail.html" class="navbar__dropdown-item">Blog Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="pricing.html" class="navbar__link">Pricing</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Dashboard <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="admin-dashboard.html" class="navbar__dropdown-item">Admin</a></li>
+              <li><a href="dashboard.html" class="navbar__dropdown-item">Dashboard</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="contact.html" class="navbar__link">Contact</a></li>
+          <li class="navbar__mobile-login"><a href="login.html" class="btn btn--primary">Sign In</a></li>
+          <li class="navbar__menu-footer">
+            <div class="navbar__menu-contact">
+              <p>Get in touch</p>
+              <a href="mailto:info@alanstudio.com">info@alanstudio.com</a>
+            </div>
+            <div class="navbar__menu-socials">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </li>
+        </ul>
+        
+        <div class="navbar__actions">
+          <a href="login.html" class="btn" style="padding:0.5rem 1.25rem;border-radius:var(--radius-full);margin-inline-end:0.5rem;background:var(--gradient-primary);color:white;border:none;transition:none;transform:none;box-shadow:none;">Sign In</a>
+          <button class="navbar__action-btn" data-rtl-toggle aria-label="Toggle RTL">
+            <i class="fas fa-globe"></i>
+          </button>
+          <button class="navbar__action-btn" data-theme-toggle aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="navbar__mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div></div></nav>
+
+  <main>
+    <section class="page-hero"><div class="page-hero__bg"></div><div class="container page-hero__content">
+      <div class="page-hero__breadcrumb"><a href="../index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:10px"></i> <span>Services</span></div>
+      <h1 class="page-hero__title">Our Dance <span class="text-gradient">Programs</span></h1>
+      <p class="page-hero__desc">From classical ballet to urban hip-hop, find the perfect class that matches your passion and skill level.</p>
+    </div></section>
+
+    <!-- FILTERABLE GRID -->
+    <section class="section filter-section" id="classes">
+      <div class="container">
+        <div class="filter-tabs reveal" data-target="serviceGrid">
+          <button class="filter-btn active" data-filter="all">All Programs</button>
+          <button class="filter-btn" data-filter="classical">Classical</button>
+          <button class="filter-btn" data-filter="urban">Urban</button>
+          <button class="filter-btn" data-filter="latin">Latin</button>
+          <button class="filter-btn" data-filter="kids">Kids</button>
+          <button class="filter-btn" data-filter="specialty">Specialty</button>
+        </div>
+
+        <div class="services-grid2" id="serviceGrid">
+          <div class="service-card2 reveal stagger-1" data-category="classical">
+            <div class="service-card2__image"><img src="https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=500&h=350&fit=crop" alt="Ballet" loading="lazy"><div class="service-card2__badge">Popular</div></div>
+            <div class="service-card2__body">
+              <div class="service-card2__category">Classical</div>
+              <h3 class="service-card2__title">Classical Ballet</h3>
+              <p class="service-card2__text">Master the foundations of grace and technique with our comprehensive ballet program for all levels.</p>
+              <div class="service-card2__meta"><div class="service-card2__meta-item"><i class="fas fa-clock"></i> 60 min</div><div class="service-card2__meta-item"><i class="fas fa-signal"></i> All Levels</div><div class="service-card2__price">$35/class</div></div>
+            </div>
+            <div class="service-card2__detail"><div class="service-card2__detail-inner">Includes beginner, intermediate, and advanced tracks. Focus on posture, turnout, port de bras, and classical variations. <a href="service-detail.html" style="color:var(--color-primary);font-weight:600">View Full Details →</a></div></div>
+          </div>
+
+          <div class="service-card2 reveal stagger-2" data-category="classical">
+            <div class="service-card2__image"><img src="https://images.unsplash.com/photo-1547153760-18fc86c76817?w=500&h=350&fit=crop" alt="Contemporary" loading="lazy"></div>
+            <div class="service-card2__body">
+              <div class="service-card2__category">Classical</div>
+              <h3 class="service-card2__title">Contemporary Dance</h3>
+              <p class="service-card2__text">Explore fluid movement and emotional expression through modern contemporary techniques.</p>
+              <div class="service-card2__meta"><div class="service-card2__meta-item"><i class="fas fa-clock"></i> 75 min</div><div class="service-card2__meta-item"><i class="fas fa-signal"></i> Intermediate</div><div class="service-card2__price">$40/class</div></div>
+            </div>
+            <div class="service-card2__detail"><div class="service-card2__detail-inner">Blends release technique, floor work, and improvisation. Ideal for dancers looking to expand their artistic range. <a href="service-detail.html" style="color:var(--color-primary);font-weight:600">View Full Details →</a></div></div>
+          </div>
+
+          <div class="service-card2 reveal stagger-3" data-category="urban">
+            <div class="service-card2__image"><img src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=500&h=350&fit=crop" alt="Hip Hop" loading="lazy"><div class="service-card2__badge" style="background:var(--color-accent)">Hot</div></div>
+            <div class="service-card2__body">
+              <div class="service-card2__category">Urban</div>
+              <h3 class="service-card2__title">Hip Hop & Street</h3>
+              <p class="service-card2__text">High-energy urban choreography with popping, locking, and freestyle elements.</p>
+              <div class="service-card2__meta"><div class="service-card2__meta-item"><i class="fas fa-clock"></i> 60 min</div><div class="service-card2__meta-item"><i class="fas fa-signal"></i> All Levels</div><div class="service-card2__price">$30/class</div></div>
+            </div>
+            <div class="service-card2__detail"><div class="service-card2__detail-inner">Learn the latest choreography, battle techniques, and freestyle skills. Monthly cypher sessions included. <a href="service-detail.html" style="color:var(--color-primary);font-weight:600">View Full Details →</a></div></div>
+          </div>
+
+          <div class="service-card2 reveal stagger-4" data-category="urban">
+            <div class="service-card2__image"><img src="https://images.unsplash.com/photo-1535525153412-30a0c73a5237?w=500&h=350&fit=crop" alt="Breaking" loading="lazy"></div>
+            <div class="service-card2__body">
+              <div class="service-card2__category">Urban</div>
+              <h3 class="service-card2__title">Breaking & B-Boy</h3>
+              <p class="service-card2__text">Learn power moves, toprock, footwork, and freezes from championship breakers.</p>
+              <div class="service-card2__meta"><div class="service-card2__meta-item"><i class="fas fa-clock"></i> 90 min</div><div class="service-card2__meta-item"><i class="fas fa-signal"></i> Intermediate</div><div class="service-card2__price">$35/class</div></div>
+            </div>
+            <div class="service-card2__detail"><div class="service-card2__detail-inner">Olympic-level breaking instruction. Progressive skill building from foundations to competition readiness. <a href="service-detail.html" style="color:var(--color-primary);font-weight:600">View Full Details →</a></div></div>
+          </div>
+
+          <div class="service-card2 reveal stagger-5" data-category="latin">
+            <div class="service-card2__image"><img src="https://images.unsplash.com/photo-1545959570-a94084071b5d?w=500&h=350&fit=crop" alt="Salsa" loading="lazy"></div>
+            <div class="service-card2__body">
+              <div class="service-card2__category">Latin</div>
+              <h3 class="service-card2__title">Salsa & Bachata</h3>
+              <p class="service-card2__text">Passionate partner dances — master the rhythm, connection, and joy of Latin dancing.</p>
+              <div class="service-card2__meta"><div class="service-card2__meta-item"><i class="fas fa-clock"></i> 60 min</div><div class="service-card2__meta-item"><i class="fas fa-signal"></i> Beginner</div><div class="service-card2__price">$25/class</div></div>
+            </div>
+            <div class="service-card2__detail"><div class="service-card2__detail-inner">No partner needed! Social dance nights every Friday. Learn leading, following, and musicality. <a href="service-detail.html" style="color:var(--color-primary);font-weight:600">View Full Details →</a></div></div>
+          </div>
+
+          <div class="service-card2 reveal stagger-6" data-category="specialty">
+            <div class="service-card2__image"><img src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=500&h=350&fit=crop" alt="Jazz" loading="lazy"></div>
+            <div class="service-card2__body">
+              <div class="service-card2__category">Specialty</div>
+              <h3 class="service-card2__title">Jazz & Musical Theater</h3>
+              <p class="service-card2__text">Dynamic, theatrical dance for stage performances. Broadway-style choreography and showmanship.</p>
+              <div class="service-card2__meta"><div class="service-card2__meta-item"><i class="fas fa-clock"></i> 75 min</div><div class="service-card2__meta-item"><i class="fas fa-signal"></i> All Levels</div><div class="service-card2__price">$35/class</div></div>
+            </div>
+            <div class="service-card2__detail"><div class="service-card2__detail-inner">Annual showcase production included. Learn audition techniques and stage presence. <a href="service-detail.html" style="color:var(--color-primary);font-weight:600">View Full Details →</a></div></div>
+          </div>
+
+          <div class="service-card2 reveal" data-category="kids">
+            <div class="service-card2__image"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=500&h=350&fit=crop" alt="Kids Dance" loading="lazy"><div class="service-card2__badge" style="background:#48BB78">Ages 4-12</div></div>
+            <div class="service-card2__body">
+              <div class="service-card2__category">Kids</div>
+              <h3 class="service-card2__title">Kids Dance Program</h3>
+              <p class="service-card2__text">Fun, age-appropriate classes that build confidence, coordination, and a love for movement.</p>
+              <div class="service-card2__meta"><div class="service-card2__meta-item"><i class="fas fa-clock"></i> 45 min</div><div class="service-card2__meta-item"><i class="fas fa-signal"></i> Beginner</div><div class="service-card2__price">$20/class</div></div>
+            </div>
+            <div class="service-card2__detail"><div class="service-card2__detail-inner">Creative movement, basic ballet, and hip-hop foundations. Recitals twice yearly. <a href="service-detail.html" style="color:var(--color-primary);font-weight:600">View Full Details →</a></div></div>
+          </div>
+
+          <div class="service-card2 reveal" data-category="specialty">
+            <div class="service-card2__image"><img src="https://images.unsplash.com/photo-1524594152303-9fd13543fe6e?w=500&h=350&fit=crop" alt="Choreography" loading="lazy"></div>
+            <div class="service-card2__body">
+              <div class="service-card2__category">Specialty</div>
+              <h3 class="service-card2__title">Choreography Lab</h3>
+              <p class="service-card2__text">Create your own dance pieces with guided mentorship. Perfect for aspiring choreographers.</p>
+              <div class="service-card2__meta"><div class="service-card2__meta-item"><i class="fas fa-clock"></i> 90 min</div><div class="service-card2__meta-item"><i class="fas fa-signal"></i> Advanced</div><div class="service-card2__price">$45/class</div></div>
+            </div>
+            <div class="service-card2__detail"><div class="service-card2__detail-inner">Limited to 8 participants per session. Work on original pieces with professional feedback. <a href="service-detail.html" style="color:var(--color-primary);font-weight:600">View Full Details →</a></div></div>
+          </div>
+
+          <div class="service-card2 reveal" data-category="specialty">
+            <div class="service-card2__image"><img src="https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=500&h=350&fit=crop" alt="Private Lessons" loading="lazy"></div>
+            <div class="service-card2__body">
+              <div class="service-card2__category">Specialty</div>
+              <h3 class="service-card2__title">Private Coaching</h3>
+              <p class="service-card2__text">One-on-one sessions tailored to your goals. Competition prep, wedding dances, and more.</p>
+              <div class="service-card2__meta"><div class="service-card2__meta-item"><i class="fas fa-clock"></i> 60 min</div><div class="service-card2__meta-item"><i class="fas fa-signal"></i> Custom</div><div class="service-card2__price">$75/session</div></div>
+            </div>
+            <div class="service-card2__detail"><div class="service-card2__detail-inner">Personalized curriculum. Flexible scheduling including evenings and weekends. <a href="service-detail.html" style="color:var(--color-primary);font-weight:600">View Full Details →</a></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING PROCESS -->
+    <section class="section process-section" id="process">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-list-check"></i> How It Works</span>
+          <h2 class="section-header__title">Start Dancing in <span class="text-gradient">4 Steps</span></h2>
+        </div>
+        <div class="process-grid">
+          <div class="process-step reveal stagger-1"><div class="process-step__number">1</div><h3 class="process-step__title">Choose a Style</h3><p class="process-step__text">Browse our programs and find the dance style that excites you most.</p></div>
+          <div class="process-step reveal stagger-2"><div class="process-step__number">2</div><h3 class="process-step__title">Pick a Schedule</h3><p class="process-step__text">Select class times that fit your calendar from our flexible weekly schedule.</p></div>
+          <div class="process-step reveal stagger-3"><div class="process-step__number">3</div><h3 class="process-step__title">Book & Pay</h3><p class="process-step__text">Reserve your spot online with secure checkout. Drop-ins always welcome.</p></div>
+          <div class="process-step reveal stagger-4"><div class="process-step__number">4</div><h3 class="process-step__title">Dance!</h3><p class="process-step__text">Show up, move your body, and let the music guide you. We'll handle the rest.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-banner">
+      <div class="container reveal">
+        <h2 class="cta-banner__title">Ready to Find Your Rhythm?</h2>
+        <p class="cta-banner__text">Book your first class today and get 50% off. No commitment, no experience needed.</p>
+        <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+          <a href="pricing.html" class="btn btn--white btn--lg">View Pricing <i class="fas fa-arrow-right"></i></a>
+          <a href="contact.html" class="btn btn--secondary btn--lg" style="border-color:rgba(255,255,255,.4);color:white">Contact Us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <svg class="footer__wave" viewBox="0 0 2880 48" preserveAspectRatio="none">
+      <path d="M0 48h2880V0c-396 24-792 36-1188 36S396 24 0 0v48z" fill="var(--bg-primary)" opacity="0.3"/>
+      <path d="M0 48h2880V12c-396 18-792 26-1188 26S396 30 0 12v36z" fill="var(--bg-primary)" opacity="0.5"/>
+    </svg>
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="navbar__logo" style="margin-bottom: var(--space-4);"><div class="navbar__logo-icon"><i class="fas fa-music"></i></div><div class="navbar__logo-text"><span>Alan</span></div></a>
+          <p class="footer__brand-desc">Where movement meets artistry. We've been inspiring dancers since 2010, creating a welcoming space for all skill levels and dance styles.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer__heading">Quick Links</h3>
+          <ul class="footer__links">
+            <li><a href="about.html" class="footer__link">About Us</a></li>
+            <li><a href="services.html" class="footer__link">Classes</a></li>
+            <li><a href="pricing.html" class="footer__link">Pricing</a></li>
+            <li><a href="blog.html" class="footer__link">Blog</a></li>
+            <li><a href="contact.html" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Dance Styles</h3>
+          <ul class="footer__links">
+            <li><a href="service-detail.html" class="footer__link">Ballet</a></li>
+            <li><a href="service-detail.html" class="footer__link">Contemporary</a></li>
+            <li><a href="service-detail.html" class="footer__link">Hip Hop</a></li>
+            <li><a href="service-detail.html" class="footer__link">Jazz</a></li>
+            <li><a href="service-detail.html" class="footer__link">Salsa</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Contact Info</h3>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link"><i class="fas fa-map-marker-alt" style="width:16px;margin-inline-end:8px;"></i>123 Dance Ave, Suite 100</a></li>
+            <li><a href="tel:+15551234567" class="footer__link"><i class="fas fa-phone" style="width:16px;margin-inline-end:8px;"></i>(555) 123-4567</a></li>
+            <li><a href="mailto:info@alandance.com" class="footer__link"><i class="fas fa-envelope" style="width:16px;margin-inline-end:8px;"></i>info@alandance.com</a></li>
+            <li><span class="footer__link"><i class="fas fa-clock" style="width:16px;margin-inline-end:8px;"></i>Mon-Sat: 8AM - 9PM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Alan. All rights reserved.</p>
+        
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="../assets/js/modules/theme.js"></script>
+  <script src="../assets/js/modules/rtl.js"></script>
+  <script src="../assets/js/modules/navigation.js"></script>
+  <script src="../assets/js/modules/animations.js"></script>
+  <script src="../assets/js/modules/dashboard.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // Expand card on click
+    document.querySelectorAll('.service-card2').forEach(card => {
+      card.addEventListener('click', function(e) {
+        if (e.target.closest('a')) return;
+        this.classList.toggle('expanded');
+      });
+    });
+  </script>
+</body>
+</html>

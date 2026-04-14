@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn about Alan — our history, our team, and our passion for dance education.">
+  <title>About Us — Alan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Dancing+Script:wght@400..700&family=Cairo:wght@300..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/rtl.css">
+  <style>
+    /* PAGE HERO */
+    .page-hero{position:relative;padding:180px 0 100px;overflow:hidden;text-align:center}
+    .page-hero__bg{position:absolute;inset:0;z-index:0}
+    .page-hero__gradient{position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,70,193,.9) 0%,rgba(26,32,44,.95) 50%,rgba(255,107,107,.7) 100%);background-size:300% 300%;animation:gradientShift 12s ease infinite}
+    .page-hero__content{position:relative;z-index:1}
+    .page-hero__breadcrumb{display:flex;align-items:center;justify-content:center;gap:var(--space-2);font-size:var(--font-size-sm);color:rgba(255,255,255,.6);margin-bottom:var(--space-4)}
+    .page-hero__breadcrumb a{color:rgba(255,255,255,.8);text-decoration:none}
+    .page-hero__breadcrumb a:hover{color:white}
+    .page-hero__title{font-size:clamp(2.5rem,5vw,4rem);color:white;margin-bottom:var(--space-4)}
+    .page-hero__desc{font-size:var(--font-size-lg);color:rgba(255,255,255,.7);max-width:600px;margin:0 auto}
+    .page-hero__shapes{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+    .page-hero__shape{position:absolute;border-radius:50%;opacity:.08}
+    .page-hero__shape--1{width:300px;height:300px;background:var(--color-accent);top:-80px;right:10%;animation:float 8s ease-in-out infinite}
+    .page-hero__shape--2{width:200px;height:200px;background:var(--color-primary-light);bottom:-60px;left:5%;animation:float 10s ease-in-out infinite reverse}
+
+    /* STORY SECTION */
+    .story-section{background:var(--bg-primary)}
+    .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-16);align-items:center}
+    .story-images{position:relative;height:500px}
+    .story-images__main{width:80%;height:85%;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--shadow-2xl);position:relative;z-index:1}
+    .story-images__accent{position:absolute;bottom:0;inset-inline-end:0;width:50%;height:50%;object-fit:cover;border-radius:var(--radius-md);border:4px solid var(--bg-primary);box-shadow:var(--shadow-xl);z-index:2}
+    .story-images__badge{position:absolute;top:var(--space-6);inset-inline-end:var(--space-6);background:var(--gradient-primary);color:white;padding:var(--space-4);border-radius:var(--radius-md);text-align:center;z-index:3;box-shadow:var(--shadow-glow)}
+    .story-images__badge-number{font-size:var(--font-size-3xl);font-weight:var(--font-weight-black);line-height:1}
+    .story-images__badge-text{font-size:var(--font-size-xs);text-transform:uppercase;letter-spacing:var(--letter-spacing-wider)}
+    .story-content__label{font-family:var(--font-accent);font-size:var(--font-size-lg);color:var(--color-accent);margin-bottom:var(--space-3)}
+    .story-content__title{font-size:var(--font-size-4xl);margin-bottom:var(--space-6)}
+    .story-content__text{color:var(--text-secondary);margin-bottom:var(--space-4);line-height:var(--line-height-relaxed)}
+    .story-content__stats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6);margin-top:var(--space-8);padding-top:var(--space-8);border-top:1px solid var(--border-color)}
+    .story-stat__number{font-size:var(--font-size-3xl);font-weight:var(--font-weight-black);background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+    .story-stat__label{font-size:var(--font-size-sm);color:var(--text-tertiary);margin-top:var(--space-1)}
+
+    /* TIMELINE */
+    .timeline-section{background:var(--bg-secondary)}
+    .timeline{position:relative;max-width:900px;margin:0 auto;padding:var(--space-8) 0}
+    .timeline::before{content:'';position:absolute;top:0;bottom:0;inset-inline-start:50%;width:2px;background:var(--border-color);transform:translateX(-50%)}
+    .timeline-item{position:relative;width:50%;padding:var(--space-2) var(--space-8) var(--space-12)}
+    .timeline-item:nth-child(odd){inset-inline-start:0;text-align:end;padding-inline-end:var(--space-12)}
+    .timeline-item:nth-child(even){inset-inline-start:50%;text-align:start;padding-inline-start:var(--space-12)}
+    .timeline-item__dot{position:absolute;top:var(--space-2);width:16px;height:16px;border-radius:50%;background:var(--gradient-primary);border:3px solid var(--bg-secondary);z-index:1}
+    .timeline-item:nth-child(odd) .timeline-item__dot{inset-inline-end:-8px}
+    .timeline-item:nth-child(even) .timeline-item__dot{inset-inline-start:-8px}
+    .timeline-item__year{font-family:var(--font-accent);font-size:var(--font-size-xl);color:var(--color-primary);margin-bottom:var(--space-2)}
+    .timeline-item__title{font-size:var(--font-size-xl);margin-bottom:var(--space-2)}
+    .timeline-item__text{font-size:var(--font-size-sm);color:var(--text-tertiary)}
+
+    /* TEAM */
+    .team-section{background:var(--bg-primary)}
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-8)}
+    .team-card{text-align:center}
+    .team-card__image-wrap{position:relative;width:180px;height:180px;margin:0 auto var(--space-4);border-radius:50%;overflow:hidden;border:4px solid var(--border-color);transition:border-color .3s ease}
+    .team-card:hover .team-card__image-wrap{border-color:var(--color-primary)}
+    .team-card__image{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+    .team-card:hover .team-card__image{transform:scale(1.08)}
+    .team-card__social-overlay{position:absolute;inset:0;background:rgba(var(--color-primary-rgb),.8);display:flex;align-items:center;justify-content:center;gap:var(--space-3);opacity:0;transition:opacity .3s ease}
+    .team-card:hover .team-card__social-overlay{opacity:1}
+    .team-card__social-overlay a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:white;font-size:var(--font-size-sm);transition:background .2s ease;text-decoration:none}
+    .team-card__social-overlay a:hover{background:white;color:var(--color-primary)}
+    .team-card__name{font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);margin-bottom:var(--space-1)}
+    .team-card__role{font-size:var(--font-size-sm);color:var(--color-accent);font-family:var(--font-accent)}
+
+    /* MISSION */
+    .mission-section{background:var(--bg-secondary);position:relative;overflow:hidden}
+    .mission-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(var(--color-primary-rgb),.06) 0%,transparent 60%)}
+    .mission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8)}
+    .mission-card{text-align:center;padding:var(--space-8)}
+    .mission-card__icon{width:72px;height:72px;margin:0 auto var(--space-6);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--font-size-2xl);background:rgba(var(--color-primary-rgb),.1);color:var(--color-primary);transition:all .4s ease}
+    .mission-card:hover .mission-card__icon{background:var(--gradient-primary);color:white;transform:scale(1.1) rotate(5deg)}
+    .mission-card__title{font-size:var(--font-size-xl);margin-bottom:var(--space-3)}
+    .mission-card__text{font-size:var(--font-size-sm);color:var(--text-tertiary)}
+
+    /* VALUES */
+    .values-section{background:var(--bg-primary)}
+    .values-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-6)}
+    .value-card{display:flex;gap:var(--space-6);padding:var(--space-6);background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);transition:all .3s ease}
+    .value-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:rgba(var(--color-primary-rgb),.3)}
+    .value-card__number{font-size:var(--font-size-4xl);font-weight:var(--font-weight-black);background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;min-width:60px}
+    .value-card__title{font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .value-card__text{font-size:var(--font-size-sm);color:var(--text-tertiary);margin-bottom:0}
+
+    /* GALLERY */
+    .gallery-section{background:var(--bg-secondary)}
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:250px 250px;gap:var(--space-4)}
+    .gallery-item{border-radius:var(--radius-md);overflow:hidden;position:relative}
+    .gallery-item:first-child{grid-column:span 2;grid-row:span 2}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    .gallery-item:hover img{transform:scale(1.08)}
+    .gallery-item__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 50%);opacity:0;transition:opacity .3s ease;display:flex;align-items:flex-end;padding:var(--space-4)}
+    .gallery-item:hover .gallery-item__overlay{opacity:1}
+    .gallery-item__overlay span{color:white;font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold)}
+
+    @media(max-width:1024px){
+      .story-grid{grid-template-columns:1fr;gap:var(--space-8)}
+      .story-images{height:400px}
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+      .gallery-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:200px 200px 200px}
+      .gallery-item:first-child{grid-column:span 2}
+    }
+    @media(max-width:768px){
+      .timeline::before{inset-inline-start:20px}
+      .timeline-item{width:100%;padding-inline-start:60px !important;padding-inline-end:0 !important;inset-inline-start:0 !important;text-align:start !important}
+      .timeline-item__dot{inset-inline-start:12px !important;inset-inline-end:auto !important}
+      .mission-grid{grid-template-columns:1fr}
+      .values-grid{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:1fr;grid-template-rows:auto}
+      .gallery-item:first-child{grid-column:span 1;grid-row:span 1}
+      .gallery-item{height:200px}
+      .team-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:480px){.team-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="custom-cursor"></div><div class="scroll-progress"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="../index.html" class="navbar__logo">
+          <div class="navbar__logo-icon"><i class="fas fa-music"></i></div>
+          <div class="navbar__logo-text"><span>Alan</span></div>
+        </a>
+        
+        <ul class="navbar__menu">
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Home <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="../index.html" class="navbar__dropdown-item">Home 1</a></li>
+              <li><a href="home-2.html" class="navbar__dropdown-item">Home 2</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="about.html" class="navbar__link">About</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Services <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="services.html" class="navbar__dropdown-item">Services</a></li>
+              <li><a href="service-detail.html" class="navbar__dropdown-item">Service Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Blog <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="blog.html" class="navbar__dropdown-item">Blogs</a></li>
+              <li><a href="blog-detail.html" class="navbar__dropdown-item">Blog Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="pricing.html" class="navbar__link">Pricing</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Dashboard <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="admin-dashboard.html" class="navbar__dropdown-item">Admin</a></li>
+              <li><a href="dashboard.html" class="navbar__dropdown-item">Dashboard</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="contact.html" class="navbar__link">Contact</a></li>
+          <li class="navbar__mobile-login"><a href="login.html" class="btn btn--primary">Sign In</a></li>
+          <li class="navbar__menu-footer">
+            <div class="navbar__menu-contact">
+              <p>Get in touch</p>
+              <a href="mailto:info@alanstudio.com">info@alanstudio.com</a>
+            </div>
+            <div class="navbar__menu-socials">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </li>
+        </ul>
+        
+        <div class="navbar__actions">
+          <a href="login.html" class="btn" style="padding:0.5rem 1.25rem;border-radius:var(--radius-full);margin-inline-end:0.5rem;background:var(--gradient-primary);color:white;border:none;transition:none;transform:none;box-shadow:none;">Sign In</a>
+          <button class="navbar__action-btn" data-rtl-toggle aria-label="Toggle RTL">
+            <i class="fas fa-globe"></i>
+          </button>
+          <button class="navbar__action-btn" data-theme-toggle aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="navbar__mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div></div></nav>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="page-hero__bg"><div class="page-hero__gradient"></div></div>
+      <div class="page-hero__shapes"><div class="page-hero__shape page-hero__shape--1"></div><div class="page-hero__shape page-hero__shape--2"></div></div>
+      <div class="container page-hero__content">
+        <div class="page-hero__breadcrumb"><a href="../index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:10px"></i> <span>About Us</span></div>
+        <h1 class="page-hero__title">About <span class="text-gradient">Alan</span> Studio</h1>
+        <p class="page-hero__desc">Since 2010, we've been transforming lives through the art of dance. Discover our story, meet our team, and join our mission.</p>
+      </div>
+    </section>
+
+    <!-- OUR STORY -->
+    <section class="section story-section" id="story">
+      <div class="container">
+        <div class="story-grid">
+          <div class="story-images reveal--left">
+            <img src="https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=600&h=700&fit=crop" alt="Dance studio interior" class="story-images__main" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1547153760-18fc86c76817?w=300&h=300&fit=crop" alt="Dancers practicing" class="story-images__accent" loading="lazy">
+            <div class="story-images__badge">
+              <div class="story-images__badge-number">16</div>
+              <div class="story-images__badge-text">Years of Excellence</div>
+            </div>
+          </div>
+          <div class="story-content reveal--right">
+            <div class="story-content__label">Our Story</div>
+            <h2 class="story-content__title">A Legacy of <span class="text-gradient">Movement</span></h2>
+            <p class="story-content__text">Founded in 2010 by Sofia Martinez and Marcus Johnson, Alan began as a small 800 sq ft space with a big dream: to create a welcoming environment where anyone could discover the transformative power of dance.</p>
+            <p class="story-content__text">What started with just three classes and a handful of students has grown into a thriving dance community with over 2,500 active members, 45 world-class instructors, and a state-of-the-art facility spanning 15,000 sq ft with 8 specialized studios.</p>
+            <p class="story-content__text">Today, Alan is recognized as one of the premier dance studios in the country, producing award-winning performers and nurturing dancers of every age, background, and skill level.</p>
+            <div class="story-content__stats">
+              <div class="story-stat"><div class="story-stat__number" data-counter="2500" data-counter-suffix="+">0</div><div class="story-stat__label">Active Students</div></div>
+              <div class="story-stat"><div class="story-stat__number" data-counter="45">0</div><div class="story-stat__label">Instructors</div></div>
+              <div class="story-stat"><div class="story-stat__number" data-counter="8">0</div><div class="story-stat__label">Studios</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="section timeline-section" id="timeline">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-clock-rotate-left"></i> Our Journey</span>
+          <h2 class="section-header__title">Studio <span class="text-gradient">History</span></h2>
+          <p class="section-header__desc">Key milestones in our dance story</p>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item reveal stagger-1"><div class="timeline-item__dot"></div><div class="timeline-item__year">2010</div><h3 class="timeline-item__title">The Beginning</h3><p class="timeline-item__text">Alan opens its doors with 3 instructors and a single studio room. Our first class had just 8 students.</p></div>
+          <div class="timeline-item reveal stagger-2"><div class="timeline-item__dot"></div><div class="timeline-item__year">2013</div><h3 class="timeline-item__title">First Expansion</h3><p class="timeline-item__text">Grew to 4 studios and 15 instructors. Launched our kids' dance program and hip-hop curriculum.</p></div>
+          <div class="timeline-item reveal stagger-3"><div class="timeline-item__dot"></div><div class="timeline-item__year">2016</div><h3 class="timeline-item__title">National Recognition</h3><p class="timeline-item__text">Won "Best Dance Studio" at the National Dance Awards. Students performed at major events nationwide.</p></div>
+          <div class="timeline-item reveal stagger-4"><div class="timeline-item__dot"></div><div class="timeline-item__year">2019</div><h3 class="timeline-item__title">New Headquarters</h3><p class="timeline-item__text">Moved to our current 15,000 sq ft facility with 8 studios, a performance theater, and recovery lounge.</p></div>
+          <div class="timeline-item reveal stagger-5"><div class="timeline-item__dot"></div><div class="timeline-item__year">2022</div><h3 class="timeline-item__title">Digital Platform</h3><p class="timeline-item__text">Launched our online booking platform and virtual classes, serving students across 20+ countries.</p></div>
+          <div class="timeline-item reveal stagger-6"><div class="timeline-item__dot"></div><div class="timeline-item__year">2026</div><h3 class="timeline-item__title">The Future</h3><p class="timeline-item__text">2,500+ students, 45 instructors, and expanding. Opening our second location this coming fall.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="section team-section" id="team">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-users"></i> Leadership</span>
+          <h2 class="section-header__title">Meet Our <span class="text-gradient">Team</span></h2>
+          <p class="section-header__desc">Passionate leaders driving our dance community forward</p>
+        </div>
+        <div class="team-grid">
+          <div class="team-card reveal stagger-1">
+            <div class="team-card__image-wrap">
+              <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=250&h=250&fit=crop&crop=face" alt="Sofia Martinez" class="team-card__image" loading="lazy">
+              <div class="team-card__social-overlay">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+            <h3 class="team-card__name">Sofia Martinez</h3>
+            <span class="team-card__role">Co-Founder & Artistic Director</span>
+          </div>
+          <div class="team-card reveal stagger-2">
+            <div class="team-card__image-wrap">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=250&h=250&fit=crop&crop=face" alt="Marcus Johnson" class="team-card__image" loading="lazy">
+              <div class="team-card__social-overlay">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              </div>
+            </div>
+            <h3 class="team-card__name">Marcus Johnson</h3>
+            <span class="team-card__role">Co-Founder & Head of Programs</span>
+          </div>
+          <div class="team-card reveal stagger-3">
+            <div class="team-card__image-wrap">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=250&h=250&fit=crop&crop=face" alt="Amira Khalil" class="team-card__image" loading="lazy">
+              <div class="team-card__social-overlay">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+            <h3 class="team-card__name">Amira Khalil</h3>
+            <span class="team-card__role">Lead Choreographer</span>
+          </div>
+          <div class="team-card reveal stagger-4">
+            <div class="team-card__image-wrap">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=250&h=250&fit=crop&crop=face" alt="David Chen" class="team-card__image" loading="lazy">
+              <div class="team-card__social-overlay">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              </div>
+            </div>
+            <h3 class="team-card__name">David Chen</h3>
+            <span class="team-card__role">Operations Director</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSION & VALUES -->
+    <section class="section mission-section" id="mission">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-compass"></i> Our Mission</span>
+          <h2 class="section-header__title">What <span class="text-gradient">Drives</span> Us</h2>
+          <p class="section-header__desc">The pillars that define our approach to dance education</p>
+        </div>
+        <div class="mission-grid">
+          <div class="mission-card reveal stagger-1">
+            <div class="mission-card__icon"><i class="fas fa-heart"></i></div>
+            <h3 class="mission-card__title">Passion First</h3>
+            <p class="mission-card__text">We believe dance starts with love. Our programs ignite passion and keep the fire burning through every stage of development.</p>
+          </div>
+          <div class="mission-card reveal stagger-2">
+            <div class="mission-card__icon"><i class="fas fa-hand-holding-heart"></i></div>
+            <h3 class="mission-card__title">Inclusive Community</h3>
+            <p class="mission-card__text">Every body is a dancer's body. We welcome all ages, backgrounds, abilities, and experience levels with open arms.</p>
+          </div>
+          <div class="mission-card reveal stagger-3">
+            <div class="mission-card__icon"><i class="fas fa-medal"></i></div>
+            <h3 class="mission-card__title">Excellence Always</h3>
+            <p class="mission-card__text">From beginner to professional, we maintain the highest standards of instruction, safety, and artistic integrity.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="section values-section" id="values">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-gem"></i> Core Values</span>
+          <h2 class="section-header__title">Our <span class="text-gradient">Principles</span></h2>
+        </div>
+        <div class="values-grid">
+          <div class="value-card reveal stagger-1"><div class="value-card__number">01</div><div><h3 class="value-card__title">Creativity & Expression</h3><p class="value-card__text">Encouraging each student to find their unique artistic voice through movement and exploration.</p></div></div>
+          <div class="value-card reveal stagger-2"><div class="value-card__number">02</div><div><h3 class="value-card__title">Discipline & Growth</h3><p class="value-card__text">Building strong foundations and fostering continuous improvement through dedicated practice.</p></div></div>
+          <div class="value-card reveal stagger-3"><div class="value-card__number">03</div><div><h3 class="value-card__title">Community & Connection</h3><p class="value-card__text">Creating meaningful bonds between dancers, instructors, and families that extend beyond the studio.</p></div></div>
+          <div class="value-card reveal stagger-4"><div class="value-card__number">04</div><div><h3 class="value-card__title">Innovation & Evolution</h3><p class="value-card__text">Embracing new dance forms, teaching methods, and technology to stay at the forefront of dance education.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="section gallery-section" id="gallery">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-images"></i> Our Space</span>
+          <h2 class="section-header__title">Studio <span class="text-gradient">Gallery</span></h2>
+        </div>
+        <div class="gallery-grid">
+          <div class="gallery-item reveal stagger-1"><img src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=700&h=600&fit=crop" alt="Main studio" loading="lazy"><div class="gallery-item__overlay"><span>Main Performance Studio</span></div></div>
+          <div class="gallery-item reveal stagger-2"><img src="https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=400&h=300&fit=crop" alt="Ballet studio" loading="lazy"><div class="gallery-item__overlay"><span>Ballet Studio</span></div></div>
+          <div class="gallery-item reveal stagger-3"><img src="https://images.unsplash.com/photo-1547153760-18fc86c76817?w=400&h=300&fit=crop" alt="Contemporary class" loading="lazy"><div class="gallery-item__overlay"><span>Contemporary Room</span></div></div>
+          <div class="gallery-item reveal stagger-4"><img src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=400&h=300&fit=crop" alt="Hip hop studio" loading="lazy"><div class="gallery-item__overlay"><span>Urban Dance Floor</span></div></div>
+          <div class="gallery-item reveal stagger-5"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=300&fit=crop" alt="Lounge area" loading="lazy"><div class="gallery-item__overlay"><span>Student Lounge</span></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <svg class="footer__wave" viewBox="0 0 2880 48" preserveAspectRatio="none">
+      <path d="M0 48h2880V0c-396 24-792 36-1188 36S396 24 0 0v48z" fill="var(--bg-primary)" opacity="0.3"/>
+      <path d="M0 48h2880V12c-396 18-792 26-1188 26S396 30 0 12v36z" fill="var(--bg-primary)" opacity="0.5"/>
+    </svg>
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="navbar__logo" style="margin-bottom: var(--space-4);"><div class="navbar__logo-icon"><i class="fas fa-music"></i></div><div class="navbar__logo-text"><span>Alan</span></div></a>
+          <p class="footer__brand-desc">Where movement meets artistry. We've been inspiring dancers since 2010, creating a welcoming space for all skill levels and dance styles.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer__heading">Quick Links</h3>
+          <ul class="footer__links">
+            <li><a href="about.html" class="footer__link">About Us</a></li>
+            <li><a href="services.html" class="footer__link">Classes</a></li>
+            <li><a href="pricing.html" class="footer__link">Pricing</a></li>
+            <li><a href="blog.html" class="footer__link">Blog</a></li>
+            <li><a href="contact.html" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Dance Styles</h3>
+          <ul class="footer__links">
+            <li><a href="service-detail.html" class="footer__link">Ballet</a></li>
+            <li><a href="service-detail.html" class="footer__link">Contemporary</a></li>
+            <li><a href="service-detail.html" class="footer__link">Hip Hop</a></li>
+            <li><a href="service-detail.html" class="footer__link">Jazz</a></li>
+            <li><a href="service-detail.html" class="footer__link">Salsa</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Contact Info</h3>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link"><i class="fas fa-map-marker-alt" style="width:16px;margin-inline-end:8px;"></i>123 Dance Ave, Suite 100</a></li>
+            <li><a href="tel:+15551234567" class="footer__link"><i class="fas fa-phone" style="width:16px;margin-inline-end:8px;"></i>(555) 123-4567</a></li>
+            <li><a href="mailto:info@alandance.com" class="footer__link"><i class="fas fa-envelope" style="width:16px;margin-inline-end:8px;"></i>info@alandance.com</a></li>
+            <li><span class="footer__link"><i class="fas fa-clock" style="width:16px;margin-inline-end:8px;"></i>Mon-Sat: 8AM - 9PM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Alan. All rights reserved.</p>
+        
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="../assets/js/modules/theme.js"></script>
+  <script src="../assets/js/modules/rtl.js"></script>
+  <script src="../assets/js/modules/navigation.js"></script>
+  <script src="../assets/js/modules/animations.js"></script>
+  <script src="../assets/js/modules/dashboard.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

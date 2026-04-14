@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Classical Ballet at Alan — Master the art of grace and technique with our comprehensive ballet program.">
+  <title>Classical Ballet — Alan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Dancing+Script:wght@400..700&family=Cairo:wght@300..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/rtl.css">
+  <style>
+    .detail-hero{position:relative;height:60vh;min-height:400px;display:flex;align-items:flex-end;overflow:hidden}
+    .detail-hero__bg{position:absolute;inset:0}
+    .detail-hero__bg img{width:100%;height:100%;object-fit:cover}
+    .detail-hero__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,32,44,.9) 0%,rgba(26,32,44,.3) 50%,rgba(107,70,193,.2) 100%)}
+    .detail-hero__content{position:relative;z-index:1;padding-bottom:var(--space-12);width:100%}
+    .detail-hero__breadcrumb{display:flex;align-items:center;gap:var(--space-2);font-size:var(--font-size-sm);color:rgba(255,255,255,.6);margin-bottom:var(--space-4)}
+    .detail-hero__breadcrumb a{color:rgba(255,255,255,.8);text-decoration:none}
+    .detail-hero__badge{display:inline-block;padding:var(--space-1) var(--space-4);background:var(--color-primary);color:white;font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);border-radius:var(--radius-full);margin-bottom:var(--space-4);text-transform:uppercase;letter-spacing:var(--letter-spacing-wider)}
+    .detail-hero__title{font-size:clamp(2rem,4vw,3.5rem);color:white;margin-bottom:var(--space-4)}
+    .detail-hero__meta{display:flex;gap:var(--space-6);flex-wrap:wrap}
+    .detail-hero__meta-item{display:flex;align-items:center;gap:var(--space-2);color:rgba(255,255,255,.7);font-size:var(--font-size-sm)}
+    .detail-hero__meta-item i{color:var(--color-accent)}
+
+    .detail-layout{display:grid;grid-template-columns:1fr 360px;gap:var(--space-12);padding-block:var(--space-12)}
+    .detail-main{min-width:0}
+    .detail-sidebar{position:sticky;top:100px;align-self:start}
+
+    /* TABS */
+    .detail-tabs{border-bottom:2px solid var(--border-color);display:flex;gap:0;margin-bottom:var(--space-8);overflow-x:auto;scrollbar-width:none}
+    .detail-tabs::-webkit-scrollbar{display:none}
+    .detail-tab{padding:var(--space-4) var(--space-6);font-family:var(--font-body);font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:var(--text-tertiary);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap;transition:all .2s ease}
+    .detail-tab:hover{color:var(--text-primary)}
+    .detail-tab.active{color:var(--color-primary);border-bottom-color:var(--color-primary)}
+    .detail-panel{display:none;animation:fadeUp .4s ease}
+    .detail-panel.active{display:block}
+    .detail-panel h3{font-size:var(--font-size-2xl);margin-bottom:var(--space-4)}
+    .detail-panel p{color:var(--text-secondary);line-height:var(--line-height-relaxed);margin-bottom:var(--space-4)}
+    .detail-panel ul{list-style:none;margin-bottom:var(--space-6)}
+    .detail-panel ul li{padding:var(--space-2) 0;color:var(--text-secondary);display:flex;align-items:flex-start;gap:var(--space-3)}
+    .detail-panel ul li i{color:var(--color-primary);margin-top:4px;min-width:16px}
+    .curriculum-item{padding:var(--space-4) var(--space-6);border:1px solid var(--border-color);border-radius:var(--radius-sm);margin-bottom:var(--space-3);display:flex;align-items:center;justify-content:space-between;transition:all .2s ease}
+    .curriculum-item:hover{border-color:var(--color-primary);background:rgba(var(--color-primary-rgb),.03)}
+    .curriculum-item__info{display:flex;align-items:center;gap:var(--space-3)}
+    .curriculum-item__number{width:32px;height:32px;border-radius:50%;background:rgba(var(--color-primary-rgb),.1);color:var(--color-primary);display:flex;align-items:center;justify-content:center;font-size:var(--font-size-sm);font-weight:var(--font-weight-bold)}
+    .curriculum-item__title{font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm)}
+    .curriculum-item__duration{font-size:var(--font-size-xs);color:var(--text-tertiary)}
+    .instructor-mini{display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4);background:var(--bg-secondary);border-radius:var(--radius-md);margin-bottom:var(--space-4)}
+    .instructor-mini__img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+    .instructor-mini__name{font-weight:var(--font-weight-semibold)}
+    .instructor-mini__role{font-size:var(--font-size-sm);color:var(--text-tertiary)}
+
+    /* SIDEBAR BOOKING */
+    .booking-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:var(--space-8);box-shadow:var(--shadow-lg)}
+    .booking-card__price{font-size:var(--font-size-4xl);font-weight:var(--font-weight-black);margin-bottom:var(--space-1)}
+    .booking-card__period{font-size:var(--font-size-sm);color:var(--text-tertiary);margin-bottom:var(--space-6)}
+    .booking-card__features{list-style:none;margin-bottom:var(--space-6)}
+    .booking-card__features li{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) 0;font-size:var(--font-size-sm);color:var(--text-secondary)}
+    .booking-card__features li i{color:#48BB78;width:16px}
+    .booking-card .btn{width:100%;margin-bottom:var(--space-3)}
+    .booking-card__note{font-size:var(--font-size-xs);color:var(--text-tertiary);text-align:center}
+    .booking-pulse{animation:pulseGlow 2s ease-in-out infinite}
+
+    /* PRICING TABLE */
+    .pricing-comparison{width:100%;border-collapse:collapse;margin-bottom:var(--space-8)}
+    .pricing-comparison th,.pricing-comparison td{padding:var(--space-3) var(--space-4);text-align:center;border:1px solid var(--border-color);font-size:var(--font-size-sm)}
+    .pricing-comparison th{background:var(--bg-secondary);font-weight:var(--font-weight-bold);color:var(--text-primary)}
+    .pricing-comparison .popular{background:rgba(var(--color-primary-rgb),.05)}
+    .pricing-comparison .popular-header{background:var(--color-primary);color:white}
+
+    /* FAQ */
+    .faq-section{margin-top:var(--space-12)}
+
+    @media(max-width:1024px){.detail-layout{grid-template-columns:1fr;}.detail-sidebar{position:static}}
+    @media(max-width:768px){.detail-hero{height:50vh;min-height:350px}}
+  </style>
+</head>
+<body>
+  <div class="custom-cursor"></div><div class="scroll-progress"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="../index.html" class="navbar__logo">
+          <div class="navbar__logo-icon"><i class="fas fa-music"></i></div>
+          <div class="navbar__logo-text"><span>Alan</span></div>
+        </a>
+        
+        <ul class="navbar__menu">
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Home <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="../index.html" class="navbar__dropdown-item">Home 1</a></li>
+              <li><a href="home-2.html" class="navbar__dropdown-item">Home 2</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="about.html" class="navbar__link">About</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Services <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="services.html" class="navbar__dropdown-item">Services</a></li>
+              <li><a href="service-detail.html" class="navbar__dropdown-item">Service Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Blog <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="blog.html" class="navbar__dropdown-item">Blogs</a></li>
+              <li><a href="blog-detail.html" class="navbar__dropdown-item">Blog Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="pricing.html" class="navbar__link">Pricing</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Dashboard <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="admin-dashboard.html" class="navbar__dropdown-item">Admin</a></li>
+              <li><a href="dashboard.html" class="navbar__dropdown-item">Dashboard</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="contact.html" class="navbar__link">Contact</a></li>
+          <li class="navbar__mobile-login"><a href="login.html" class="btn btn--primary">Sign In</a></li>
+          <li class="navbar__menu-footer">
+            <div class="navbar__menu-contact">
+              <p>Get in touch</p>
+              <a href="mailto:info@alanstudio.com">info@alanstudio.com</a>
+            </div>
+            <div class="navbar__menu-socials">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </li>
+        </ul>
+        
+        <div class="navbar__actions">
+          <a href="login.html" class="btn" style="padding:0.5rem 1.25rem;border-radius:var(--radius-full);margin-inline-end:0.5rem;background:var(--gradient-primary);color:white;border:none;transition:none;transform:none;box-shadow:none;">Sign In</a>
+          <button class="navbar__action-btn" data-rtl-toggle aria-label="Toggle RTL">
+            <i class="fas fa-globe"></i>
+          </button>
+          <button class="navbar__action-btn" data-theme-toggle aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="navbar__mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div></div></nav>
+
+  <main>
+    <!-- DETAIL HERO -->
+    <section class="detail-hero">
+      <div class="detail-hero__bg">
+        <img src="https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=1400&h=600&fit=crop" alt="Ballet class" loading="lazy">
+        <div class="detail-hero__overlay"></div>
+      </div>
+      <div class="container"><div class="detail-hero__content">
+        <div class="detail-hero__breadcrumb"><a href="../index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:10px"></i> <a href="services.html">Services</a> <i class="fas fa-chevron-right" style="font-size:10px"></i> <span>Classical Ballet</span></div>
+        <span class="detail-hero__badge">Most Popular</span>
+        <h1 class="detail-hero__title">Classical Ballet</h1>
+        <div class="detail-hero__meta">
+          <div class="detail-hero__meta-item"><i class="fas fa-clock"></i> 60 Minutes</div>
+          <div class="detail-hero__meta-item"><i class="fas fa-signal"></i> All Levels</div>
+          <div class="detail-hero__meta-item"><i class="fas fa-users"></i> Max 20 Students</div>
+          <div class="detail-hero__meta-item"><i class="fas fa-star"></i> 4.9 (128 Reviews)</div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- DETAIL CONTENT -->
+    <section class="section" style="padding-top:var(--space-8)">
+      <div class="container">
+        <div class="detail-layout">
+          <!-- Main Content -->
+          <div class="detail-main">
+            <div class="detail-tabs">
+              <button class="detail-tab active" data-tab="desc">Description</button>
+              <button class="detail-tab" data-tab="curriculum">Curriculum</button>
+              <button class="detail-tab" data-tab="instructors">Instructors</button>
+              <button class="detail-tab" data-tab="requirements">Requirements</button>
+            </div>
+
+            <div class="detail-panel active" data-tab-panel="desc">
+              <h3>About This Class</h3>
+              <p>Our Classical Ballet program is designed for dancers of all levels who want to master the elegant art of ballet. From your first plié to advanced pointe work, our expert instructors guide you through a structured curriculum that builds strength, flexibility, and artistry.</p>
+              <p>Classes follow the Royal Academy of Dance (RAD) syllabus, ensuring internationally recognized standards of excellence. Each session includes a full barre warm-up, center exercises, across-the-floor combinations, and cool-down stretching.</p>
+              <h3>What You'll Learn</h3>
+              <ul>
+                <li><i class="fas fa-check-circle"></i> Proper ballet terminology and positions (1st through 5th)</li>
+                <li><i class="fas fa-check-circle"></i> Barre technique including pliés, tendus, dégagés, and grands battements</li>
+                <li><i class="fas fa-check-circle"></i> Center work: adagio, pirouettes, allegro, and petit allegro</li>
+                <li><i class="fas fa-check-circle"></i> Port de bras and upper body carriage</li>
+                <li><i class="fas fa-check-circle"></i> Musicality and artistic expression</li>
+                <li><i class="fas fa-check-circle"></i> Injury prevention and proper alignment</li>
+              </ul>
+            </div>
+
+            <div class="detail-panel" data-tab-panel="curriculum">
+              <h3>12-Week Curriculum</h3>
+              <p>Our structured program takes you from foundations to performance-ready technique.</p>
+              <div class="curriculum-item"><div class="curriculum-item__info"><span class="curriculum-item__number">1</span><span class="curriculum-item__title">Foundations & Alignment</span></div><span class="curriculum-item__duration">Weeks 1-2</span></div>
+              <div class="curriculum-item"><div class="curriculum-item__info"><span class="curriculum-item__number">2</span><span class="curriculum-item__title">Barre Mastery</span></div><span class="curriculum-item__duration">Weeks 3-4</span></div>
+              <div class="curriculum-item"><div class="curriculum-item__info"><span class="curriculum-item__number">3</span><span class="curriculum-item__title">Center Work & Adagio</span></div><span class="curriculum-item__duration">Weeks 5-6</span></div>
+              <div class="curriculum-item"><div class="curriculum-item__info"><span class="curriculum-item__number">4</span><span class="curriculum-item__title">Turns & Pirouettes</span></div><span class="curriculum-item__duration">Weeks 7-8</span></div>
+              <div class="curriculum-item"><div class="curriculum-item__info"><span class="curriculum-item__number">5</span><span class="curriculum-item__title">Allegro & Jumps</span></div><span class="curriculum-item__duration">Weeks 9-10</span></div>
+              <div class="curriculum-item"><div class="curriculum-item__info"><span class="curriculum-item__number">6</span><span class="curriculum-item__title">Performance Preparation</span></div><span class="curriculum-item__duration">Weeks 11-12</span></div>
+            </div>
+
+            <div class="detail-panel" data-tab-panel="instructors">
+              <h3>Your Instructors</h3>
+              <p>Learn from internationally trained ballet professionals.</p>
+              <div class="instructor-mini">
+                <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=100&h=100&fit=crop&crop=face" alt="Sofia Martinez" class="instructor-mini__img">
+                <div><div class="instructor-mini__name">Sofia Martinez</div><div class="instructor-mini__role">Artistic Director • 20 years experience • RAD certified</div></div>
+              </div>
+              <div class="instructor-mini">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face" alt="Elena Petrova" class="instructor-mini__img">
+                <div><div class="instructor-mini__name">Elena Petrova</div><div class="instructor-mini__role">Lead Ballet Instructor • Bolshoi Academy graduate • 15 years experience</div></div>
+              </div>
+            </div>
+
+            <div class="detail-panel" data-tab-panel="requirements">
+              <h3>What You Need</h3>
+              <ul>
+                <li><i class="fas fa-check-circle"></i> Ballet slippers (pink for women, black for men)</li>
+                <li><i class="fas fa-check-circle"></i> Leotard and tights (colors specified per level)</li>
+                <li><i class="fas fa-check-circle"></i> Hair secured in a bun (for long hair)</li>
+                <li><i class="fas fa-check-circle"></i> Water bottle</li>
+                <li><i class="fas fa-check-circle"></i> No prior experience needed for Beginner level</li>
+              </ul>
+              <h3>Level Requirements</h3>
+              <ul>
+                <li><i class="fas fa-star" style="color:var(--color-accent)"></i> <strong>Beginner:</strong> No experience needed. Perfect for first-time dancers.</li>
+                <li><i class="fas fa-star" style="color:var(--color-accent)"></i> <strong>Intermediate:</strong> 1+ years of ballet training. Comfortable at barre.</li>
+                <li><i class="fas fa-star" style="color:var(--color-accent)"></i> <strong>Advanced:</strong> 3+ years. Strong technique, ready for pointe work.</li>
+              </ul>
+            </div>
+
+            <!-- PRICING TABLE -->
+            <div style="margin-top:var(--space-12)">
+              <h3 style="margin-bottom:var(--space-6)">Pricing Options</h3>
+              <table class="pricing-comparison">
+                <thead><tr><th>Plan</th><th>Drop-In</th><th class="popular-header">10-Class Pack</th><th>Unlimited</th></tr></thead>
+                <tbody>
+                  <tr><td>Price</td><td>$35</td><td class="popular"><strong>$300</strong></td><td>$199/mo</td></tr>
+                  <tr><td>Per Class</td><td>$35</td><td class="popular"><strong>$30</strong></td><td>~$10</td></tr>
+                  <tr><td>Validity</td><td>Single use</td><td class="popular">3 months</td><td>Monthly</td></tr>
+                  <tr><td>Video Library</td><td><i class="fas fa-times" style="color:var(--color-accent)"></i></td><td class="popular"><i class="fas fa-check" style="color:#48BB78"></i></td><td><i class="fas fa-check" style="color:#48BB78"></i></td></tr>
+                  <tr><td>Priority Booking</td><td><i class="fas fa-times" style="color:var(--color-accent)"></i></td><td class="popular"><i class="fas fa-times" style="color:var(--color-accent)"></i></td><td><i class="fas fa-check" style="color:#48BB78"></i></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- FAQ -->
+            <div class="faq-section">
+              <h3 style="margin-bottom:var(--space-6)">Frequently Asked Questions</h3>
+              <div class="accordion-item"><button class="accordion-btn">What should I wear to my first ballet class? <span class="icon"><i class="fas fa-chevron-down"></i></span></button><div class="accordion-content"><div class="accordion-content__inner"><p>For your first class, comfortable workout clothing is fine. After that, we recommend a leotard and tights. Ballet slippers are required from the second class onward and can be purchased at our studio shop.</p></div></div></div>
+              <div class="accordion-item"><button class="accordion-btn">Am I too old to start ballet? <span class="icon"><i class="fas fa-chevron-down"></i></span></button><div class="accordion-content"><div class="accordion-content__inner"><p>Absolutely not! We have students from age 4 to 74. Our adult beginner classes are designed specifically for those starting later in life, with emphasis on flexibility and building strength gradually.</p></div></div></div>
+              <div class="accordion-item"><button class="accordion-btn">Can I do a trial class? <span class="icon"><i class="fas fa-chevron-down"></i></span></button><div class="accordion-content"><div class="accordion-content__inner"><p>Yes! Your first class is 50% off with code FIRSTDANCE. You can also attend one of our free monthly open house events to try multiple styles.</p></div></div></div>
+              <div class="accordion-item"><button class="accordion-btn">How do I progress to intermediate level? <span class="icon"><i class="fas fa-chevron-down"></i></span></button><div class="accordion-content"><div class="accordion-content__inner"><p>After completing our 12-week beginner program, instructors will assess your readiness. Most students progress within 6-12 months of consistent training (2-3 classes per week).</p></div></div></div>
+            </div>
+          </div>
+
+          <!-- SIDEBAR -->
+          <aside class="detail-sidebar">
+            <div class="booking-card booking-pulse">
+              <div class="booking-card__price" style="background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">$35<span style="font-size:var(--font-size-base);font-weight:400;-webkit-text-fill-color:var(--text-tertiary)">/class</span></div>
+              <div class="booking-card__period">or save 14% with a class pack</div>
+              <ul class="booking-card__features">
+                <li><i class="fas fa-check"></i> 60-minute session</li>
+                <li><i class="fas fa-check"></i> Expert RAD instructors</li>
+                <li><i class="fas fa-check"></i> All equipment provided</li>
+                <li><i class="fas fa-check"></i> Small class sizes (max 20)</li>
+                <li><i class="fas fa-check"></i> Free first-class consultation</li>
+                <li><i class="fas fa-check"></i> Flexible scheduling</li>
+              </ul>
+              <a href="register.html" class="btn btn--primary btn--lg">Book Now <i class="fas fa-arrow-right"></i></a>
+              <a href="pricing.html" class="btn btn--ghost btn--lg">View All Plans</a>
+              <p class="booking-card__note">No commitment required. Cancel anytime.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <svg class="footer__wave" viewBox="0 0 2880 48" preserveAspectRatio="none">
+      <path d="M0 48h2880V0c-396 24-792 36-1188 36S396 24 0 0v48z" fill="var(--bg-primary)" opacity="0.3"/>
+      <path d="M0 48h2880V12c-396 18-792 26-1188 26S396 30 0 12v36z" fill="var(--bg-primary)" opacity="0.5"/>
+    </svg>
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="navbar__logo" style="margin-bottom: var(--space-4);"><div class="navbar__logo-icon"><i class="fas fa-music"></i></div><div class="navbar__logo-text"><span>Alan</span></div></a>
+          <p class="footer__brand-desc">Where movement meets artistry. We've been inspiring dancers since 2010, creating a welcoming space for all skill levels and dance styles.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer__heading">Quick Links</h3>
+          <ul class="footer__links">
+            <li><a href="about.html" class="footer__link">About Us</a></li>
+            <li><a href="services.html" class="footer__link">Classes</a></li>
+            <li><a href="pricing.html" class="footer__link">Pricing</a></li>
+            <li><a href="blog.html" class="footer__link">Blog</a></li>
+            <li><a href="contact.html" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Dance Styles</h3>
+          <ul class="footer__links">
+            <li><a href="service-detail.html" class="footer__link">Ballet</a></li>
+            <li><a href="service-detail.html" class="footer__link">Contemporary</a></li>
+            <li><a href="service-detail.html" class="footer__link">Hip Hop</a></li>
+            <li><a href="service-detail.html" class="footer__link">Jazz</a></li>
+            <li><a href="service-detail.html" class="footer__link">Salsa</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Contact Info</h3>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link"><i class="fas fa-map-marker-alt" style="width:16px;margin-inline-end:8px;"></i>123 Dance Ave, Suite 100</a></li>
+            <li><a href="tel:+15551234567" class="footer__link"><i class="fas fa-phone" style="width:16px;margin-inline-end:8px;"></i>(555) 123-4567</a></li>
+            <li><a href="mailto:info@alandance.com" class="footer__link"><i class="fas fa-envelope" style="width:16px;margin-inline-end:8px;"></i>info@alandance.com</a></li>
+            <li><span class="footer__link"><i class="fas fa-clock" style="width:16px;margin-inline-end:8px;"></i>Mon-Sat: 8AM - 9PM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Alan. All rights reserved.</p>
+        
+      </div>
+    </div>
+  </footer>
+  <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+  <script src="../assets/js/modules/theme.js"></script><script src="../assets/js/modules/rtl.js"></script><script src="../assets/js/modules/navigation.js"></script><script src="../assets/js/modules/animations.js"></script><script src="../assets/js/modules/dashboard.js"></script><script src="../assets/js/main.js"></script>
+  <script>
+    // Detail page tabs
+    document.querySelectorAll('.detail-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.detail-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        const panel = document.querySelector(`[data-tab-panel="${tab.dataset.tab}"]`);
+        if (panel) panel.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alan — Your digital dance platform. Book classes, track progress, and join our community.">
+  <title>Alan — Digital Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Dancing+Script:wght@400..700&family=Cairo:wght@300..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/rtl.css">
+  <style>
+    /* HERO SPLIT */
+    .hero-split{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:100px}
+    .hero-split__bg{position:absolute;inset:0;z-index:0;background:var(--bg-primary)}
+    .hero-split__mesh{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(107,70,193,0.15) 0%,transparent 50%),radial-gradient(ellipse at 30% 70%,rgba(255,107,107,0.1) 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(183,110,121,0.08) 0%,transparent 50%);background-size:200% 200%;animation:meshGradient 15s ease infinite}
+    .hero-split__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-16);align-items:center;position:relative;z-index:1}
+    .hero-split__content{max-width:560px}
+    .hero-split__badge{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);background:rgba(var(--color-primary-rgb),0.1);border:1px solid rgba(var(--color-primary-rgb),0.2);border-radius:var(--radius-full);font-size:var(--font-size-sm);color:var(--color-primary);font-weight:var(--font-weight-semibold);margin-bottom:var(--space-6);opacity:0;animation:fadeUp .8s ease .3s forwards}
+    .hero-split__title{font-size:clamp(2.2rem,5vw,3.75rem);line-height:1.1;margin-bottom:var(--space-6);opacity:0;animation:fadeUp .8s ease .5s forwards}
+    .hero-split__desc{font-size:var(--font-size-lg);color:var(--text-tertiary);margin-bottom:var(--space-8);max-width:480px;opacity:0;animation:fadeUp .8s ease .7s forwards}
+    .hero-split__buttons{display:flex;gap:var(--space-4);flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease .9s forwards}
+    .hero-split__visual{position:relative;display:flex;justify-content:center;align-items:center;opacity:0;animation:fadeInRight 1s ease 1s forwards}
+    .hero-split__illustration{position:relative;width:100%;max-width:500px;aspect-ratio:1;border-radius:var(--radius-xl);overflow:hidden}
+    .hero-split__illustration img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius-xl)}
+    .hero-split__float-card{position:absolute;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:var(--space-4);box-shadow:var(--shadow-xl);animation:float 6s ease-in-out infinite;z-index:2}
+    .hero-split__float-card--1{top:10%;inset-inline-end:-30px;display:flex;align-items:center;gap:var(--space-3)}
+    .hero-split__float-card--2{bottom:15%;inset-inline-start:-20px;animation-delay:2s}
+    .hero-split__float-icon{width:40px;height:40px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:var(--font-size-lg)}
+
+    /* BENTO FEATURES */
+    .bento-section{background:var(--bg-secondary)}
+    .bento-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto;gap:var(--space-6)}
+    .bento-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:var(--space-8);transition:all .4s ease;position:relative;overflow:hidden}
+    .bento-card::after{content:'';position:absolute;inset:0;background:var(--gradient-primary);opacity:0;transition:opacity .4s ease}
+    .bento-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-xl);border-color:rgba(var(--color-primary-rgb),.3)}
+    .bento-card:hover::after{opacity:.03}
+    .bento-card>*{position:relative;z-index:1}
+    .bento-card--wide{grid-column:span 2}
+    .bento-card--tall{grid-row:span 2;display:flex;flex-direction:column;justify-content:center}
+    .bento-card__icon{width:56px;height:56px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:var(--font-size-xl);margin-bottom:var(--space-4)}
+    .bento-card__icon--purple{background:rgba(var(--color-primary-rgb),.12);color:var(--color-primary)}
+    .bento-card__icon--coral{background:rgba(var(--color-accent-rgb),.12);color:var(--color-accent)}
+    .bento-card__icon--green{background:rgba(72,187,120,.12);color:#48BB78}
+    .bento-card__icon--gold{background:rgba(183,110,121,.12);color:var(--color-rose-gold)}
+    .bento-card__title{font-size:var(--font-size-xl);margin-bottom:var(--space-2)}
+    .bento-card__text{font-size:var(--font-size-sm);color:var(--text-tertiary);margin-bottom:0}
+
+    /* STATS */
+    .stats-section{background:var(--bg-primary);position:relative;overflow:hidden}
+    .stats-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(var(--color-primary-rgb),.05) 0%,transparent 60%)}
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-8);text-align:center}
+    .stat-item{padding:var(--space-8)}
+    .stat-item__number{font-size:var(--font-size-6xl);font-weight:var(--font-weight-black);line-height:1;margin-bottom:var(--space-2);background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .stat-item__label{font-size:var(--font-size-sm);color:var(--text-tertiary);text-transform:uppercase;letter-spacing:var(--letter-spacing-wider);font-weight:var(--font-weight-semibold)}
+
+    /* MARQUEE PARTNERS */
+    .partners-section{background:var(--bg-secondary);padding-block:var(--space-12);overflow:hidden}
+    .marquee{overflow:hidden;position:relative}
+    .marquee__track{display:flex;gap:var(--space-16);animation:marqueeLeft 30s linear infinite;width:max-content;align-items:center}
+    .marquee__item{display:flex;align-items:center;gap:var(--space-3);white-space:nowrap;color:var(--text-tertiary);font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);opacity:.4;transition:opacity .3s ease}
+    .marquee__item:hover{opacity:1}
+    .marquee__item i{font-size:var(--font-size-2xl);color:var(--color-primary)}
+
+    /* CTA DIAGONAL */
+    .cta-section{position:relative;padding:var(--space-24) 0;overflow:hidden}
+    .cta-section__bg{position:absolute;inset:0;background:var(--gradient-primary);clip-path:polygon(0 8%,100% 0,100% 92%,0 100%)}
+    .cta-section__inner{position:relative;z-index:1;text-align:center;max-width:700px;margin:0 auto;padding:var(--space-12) var(--space-6)}
+    .cta-section__title{font-size:var(--font-size-4xl);color:white;margin-bottom:var(--space-4)}
+    .cta-section__text{font-size:var(--font-size-lg);color:rgba(255,255,255,.8);margin-bottom:var(--space-8)}
+
+    /* TESTIMONIALS 2 */
+    .testimonials2-section{background:var(--bg-primary)}
+    .testimonials2-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-6)}
+    .testimonial2-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:var(--space-6);transition:all .3s ease}
+    .testimonial2-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+    .testimonial2-card__header{display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4)}
+    .testimonial2-card__avatar{width:44px;height:44px;border-radius:50%;object-fit:cover}
+    .testimonial2-card__name{font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm)}
+    .testimonial2-card__role{font-size:var(--font-size-xs);color:var(--text-tertiary)}
+    .testimonial2-card__stars{color:#ECC94B;font-size:var(--font-size-sm);margin-bottom:var(--space-3)}
+    .testimonial2-card__text{font-size:var(--font-size-sm);color:var(--text-secondary);line-height:var(--line-height-relaxed)}
+
+    @media(max-width:1024px){
+      .hero-split__grid{grid-template-columns:1fr;text-align:center}
+      .hero-split__content{max-width:100%;margin:0 auto}
+      .hero-split__desc{margin-inline:auto}
+      .hero-split__buttons{justify-content:center}
+      .hero-split__visual{margin-top:var(--space-8)}
+      .bento-grid{grid-template-columns:1fr 1fr}
+      .bento-card--wide{grid-column:span 1}
+      .stats-row{grid-template-columns:repeat(2,1fr)}
+      .testimonials2-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:768px){
+      .bento-grid{grid-template-columns:1fr}
+      .bento-card--tall{grid-row:span 1}
+      .stats-row{grid-template-columns:1fr 1fr}
+      .hero-split__float-card{display:none}
+    }
+    @media(max-width:480px){.stats-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="custom-cursor"></div>
+  <div class="scroll-progress"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="../index.html" class="navbar__logo">
+          <div class="navbar__logo-icon"><i class="fas fa-music"></i></div>
+          <div class="navbar__logo-text"><span>Alan</span></div>
+        </a>
+        
+        <ul class="navbar__menu">
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Home <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="../index.html" class="navbar__dropdown-item">Home 1</a></li>
+              <li><a href="home-2.html" class="navbar__dropdown-item">Home 2</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="about.html" class="navbar__link">About</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Services <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="services.html" class="navbar__dropdown-item">Services</a></li>
+              <li><a href="service-detail.html" class="navbar__dropdown-item">Service Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Blog <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="blog.html" class="navbar__dropdown-item">Blogs</a></li>
+              <li><a href="blog-detail.html" class="navbar__dropdown-item">Blog Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="pricing.html" class="navbar__link">Pricing</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Dashboard <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="admin-dashboard.html" class="navbar__dropdown-item">Admin</a></li>
+              <li><a href="dashboard.html" class="navbar__dropdown-item">Dashboard</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="contact.html" class="navbar__link">Contact</a></li>
+          <li class="navbar__mobile-login"><a href="login.html" class="btn btn--primary">Sign In</a></li>
+          <li class="navbar__menu-footer">
+            <div class="navbar__menu-contact">
+              <p>Get in touch</p>
+              <a href="mailto:info@alanstudio.com">info@alanstudio.com</a>
+            </div>
+            <div class="navbar__menu-socials">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </li>
+        </ul>
+        
+        <div class="navbar__actions">
+          <a href="login.html" class="btn" style="padding:0.5rem 1.25rem;border-radius:var(--radius-full);margin-inline-end:0.5rem;background:var(--gradient-primary);color:white;border:none;transition:none;transform:none;box-shadow:none;">Sign In</a>
+          <button class="navbar__action-btn" data-rtl-toggle aria-label="Toggle RTL">
+            <i class="fas fa-globe"></i>
+          </button>
+          <button class="navbar__action-btn" data-theme-toggle aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="navbar__mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div></div></nav>
+
+  <main>
+    <!-- HERO SPLIT -->
+    <section class="hero-split" id="hero">
+      <div class="hero-split__bg"><div class="hero-split__mesh"></div></div>
+      <div class="container"><div class="hero-split__grid">
+        <div class="hero-split__content">
+          <div class="hero-split__badge"><i class="fas fa-bolt"></i> The Future of Dance Education</div>
+          <h1 class="hero-split__title">Your Dance Journey, <span class="text-gradient">Reimagined</span></h1>
+          <p class="hero-split__desc">An all-in-one platform to book classes, track your progress, connect with instructors, and unlock your full potential as a dancer.</p>
+          <div class="hero-split__buttons">
+            <a href="register.html" class="btn btn--primary btn--lg">Get Started Free <i class="fas fa-arrow-right"></i></a>
+            <a href="#features" class="btn btn--ghost btn--lg">See Features</a>
+          </div>
+        </div>
+        <div class="hero-split__visual">
+          <div class="hero-split__illustration">
+            <img src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?w=600&h=600&fit=crop" alt="Dancer in studio" loading="lazy">
+          </div>
+          <div class="hero-split__float-card hero-split__float-card--1">
+            <div class="hero-split__float-icon" style="background:rgba(72,187,120,.12);color:#48BB78"><i class="fas fa-chart-line"></i></div>
+            <div><div style="font-weight:700;font-size:.875rem">Progress +42%</div><div style="font-size:.75rem;color:var(--text-tertiary)">This month</div></div>
+          </div>
+          <div class="hero-split__float-card hero-split__float-card--2">
+            <div style="font-size:.875rem;font-weight:600;margin-bottom:4px">Next Class</div>
+            <div style="font-size:.75rem;color:var(--text-tertiary)">Ballet II — 3:00 PM</div>
+            <div style="margin-top:8px;display:flex;gap:4px">
+              <span style="width:24px;height:24px;border-radius:50%;border:2px solid var(--color-primary);display:inline-block"></span>
+              <span style="width:24px;height:24px;border-radius:50%;border:2px solid var(--color-accent);display:inline-block"></span>
+              <span style="width:24px;height:24px;border-radius:50%;border:2px solid #48BB78;display:inline-block"></span>
+              <span style="font-size:.7rem;color:var(--text-tertiary);line-height:24px;margin-inline-start:4px">+8 students</span>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- BENTO FEATURES -->
+    <section class="section bento-section" id="features">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-grid-2"></i> Platform Features</span>
+          <h2 class="section-header__title">Everything You Need to <span class="text-gradient">Excel</span></h2>
+          <p class="section-header__desc">A comprehensive suite of tools designed for modern dancers</p>
+        </div>
+        <div class="bento-grid">
+          <div class="bento-card bento-card--wide reveal stagger-1">
+            <div class="bento-card__icon bento-card__icon--purple"><i class="fas fa-calendar-check"></i></div>
+            <h3 class="bento-card__title">Smart Class Booking</h3>
+            <p class="bento-card__text">Book, reschedule, or cancel classes with ease. Set recurring bookings, get waitlist notifications, and never miss a session.</p>
+          </div>
+          <div class="bento-card bento-card--tall reveal stagger-2">
+            <div class="bento-card__icon bento-card__icon--coral"><i class="fas fa-chart-pie"></i></div>
+            <h3 class="bento-card__title">Progress Analytics</h3>
+            <p class="bento-card__text">Visual dashboards showing your attendance, skill progression, and personal milestones. Set goals and track your growth over time.</p>
+          </div>
+          <div class="bento-card reveal stagger-3">
+            <div class="bento-card__icon bento-card__icon--green"><i class="fas fa-video"></i></div>
+            <h3 class="bento-card__title">Video Library</h3>
+            <p class="bento-card__text">Access recorded classes and tutorials anytime. Practice at home with step-by-step breakdowns.</p>
+          </div>
+          <div class="bento-card reveal stagger-4">
+            <div class="bento-card__icon bento-card__icon--gold"><i class="fas fa-users-gear"></i></div>
+            <h3 class="bento-card__title">Community Hub</h3>
+            <p class="bento-card__text">Connect with fellow dancers, share achievements, and participate in virtual events.</p>
+          </div>
+          <div class="bento-card reveal stagger-5">
+            <div class="bento-card__icon bento-card__icon--purple"><i class="fas fa-credit-card"></i></div>
+            <h3 class="bento-card__title">Easy Payments</h3>
+            <p class="bento-card__text">Secure payment processing with multiple plans. Pay per class or subscribe for unlimited access.</p>
+          </div>
+          <div class="bento-card bento-card--wide reveal stagger-6">
+            <div class="bento-card__icon bento-card__icon--coral"><i class="fas fa-mobile-screen-button"></i></div>
+            <h3 class="bento-card__title">Mobile-First Experience</h3>
+            <p class="bento-card__text">Fully responsive design works beautifully on any device. Book on the go, check schedules, and receive push notifications for upcoming classes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS COUNTER -->
+    <section class="section stats-section" id="stats">
+      <div class="container">
+        <div class="stats-row">
+          <div class="stat-item reveal stagger-1">
+            <div class="stat-item__number" data-counter="2500" data-counter-suffix="+">0</div>
+            <div class="stat-item__label">Active Students</div>
+          </div>
+          <div class="stat-item reveal stagger-2">
+            <div class="stat-item__number" data-counter="45" data-counter-suffix="+">0</div>
+            <div class="stat-item__label">Expert Instructors</div>
+          </div>
+          <div class="stat-item reveal stagger-3">
+            <div class="stat-item__number" data-counter="120" data-counter-suffix="+">0</div>
+            <div class="stat-item__label">Weekly Classes</div>
+          </div>
+          <div class="stat-item reveal stagger-4">
+            <div class="stat-item__number" data-counter="98" data-counter-suffix="%">0</div>
+            <div class="stat-item__label">Satisfaction Rate</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNERS MARQUEE -->
+    <section class="partners-section">
+      <div class="marquee">
+        <div class="marquee__track">
+          <div class="marquee__item"><i class="fas fa-trophy"></i> National Dance Awards</div>
+          <div class="marquee__item"><i class="fas fa-building"></i> City Arts Council</div>
+          <div class="marquee__item"><i class="fas fa-graduation-cap"></i> Dance Academy Int'l</div>
+          <div class="marquee__item"><i class="fas fa-heart"></i> MovementFirst Foundation</div>
+          <div class="marquee__item"><i class="fas fa-star"></i> Broadway Dance Center</div>
+          <div class="marquee__item"><i class="fas fa-globe"></i> World Dance Alliance</div>
+          <div class="marquee__item"><i class="fas fa-microphone"></i> Rhythm & Soul Records</div>
+          <div class="marquee__item"><i class="fas fa-film"></i> DanceFlix Studios</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA DIAGONAL -->
+    <section class="cta-section" id="cta">
+      <div class="cta-section__bg"></div>
+      <div class="container">
+        <div class="cta-section__inner reveal">
+          <h2 class="cta-section__title">Ready to Start Your Dance Journey?</h2>
+          <p class="cta-section__text">Join thousands of dancers who have transformed their passion into skill. Your first class is on us.</p>
+          <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap">
+            <a href="register.html" class="btn btn--white btn--lg">Start Free Trial <i class="fas fa-arrow-right"></i></a>
+            <a href="pricing.html" class="btn btn--secondary btn--lg" style="border-color:rgba(255,255,255,.4);color:white">View Pricing</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS GRID -->
+    <section class="section testimonials2-section" id="testimonials">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-quote-left"></i> Testimonials</span>
+          <h2 class="section-header__title">Loved by <span class="text-gradient">Dancers</span></h2>
+          <p class="section-header__desc">Hear from our community members</p>
+        </div>
+        <div class="testimonials2-grid">
+          <div class="testimonial2-card reveal stagger-1">
+            <div class="testimonial2-card__header">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face" alt="Anna K." class="testimonial2-card__avatar" loading="lazy">
+              <div><div class="testimonial2-card__name">Anna K.</div><div class="testimonial2-card__role">Ballet Student</div></div>
+            </div>
+            <div class="testimonial2-card__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p class="testimonial2-card__text">"The booking system is so intuitive. I can plan my entire week in seconds and the progress tracking keeps me motivated!"</p>
+          </div>
+          <div class="testimonial2-card reveal stagger-2">
+            <div class="testimonial2-card__header">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face" alt="Michael R." class="testimonial2-card__avatar" loading="lazy">
+              <div><div class="testimonial2-card__name">Michael R.</div><div class="testimonial2-card__role">Hip Hop Enthusiast</div></div>
+            </div>
+            <div class="testimonial2-card__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <p class="testimonial2-card__text">"Best dance platform I've used. The video library alone is worth it — I can practice at home and come to class prepared."</p>
+          </div>
+          <div class="testimonial2-card reveal stagger-3">
+            <div class="testimonial2-card__header">
+              <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=80&h=80&fit=crop&crop=face" alt="Priya S." class="testimonial2-card__avatar" loading="lazy">
+              <div><div class="testimonial2-card__name">Priya S.</div><div class="testimonial2-card__role">Contemporary Dancer</div></div>
+            </div>
+            <div class="testimonial2-card__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+            <p class="testimonial2-card__text">"From registration to my first class it took 5 minutes. The community hub is amazing — I've made real friendships here!"</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <svg class="footer__wave" viewBox="0 0 2880 48" preserveAspectRatio="none">
+      <path d="M0 48h2880V0c-396 24-792 36-1188 36S396 24 0 0v48z" fill="var(--bg-primary)" opacity="0.3"/>
+      <path d="M0 48h2880V12c-396 18-792 26-1188 26S396 30 0 12v36z" fill="var(--bg-primary)" opacity="0.5"/>
+    </svg>
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="navbar__logo" style="margin-bottom: var(--space-4);"><div class="navbar__logo-icon"><i class="fas fa-music"></i></div><div class="navbar__logo-text"><span>Alan</span></div></a>
+          <p class="footer__brand-desc">Where movement meets artistry. We've been inspiring dancers since 2010, creating a welcoming space for all skill levels and dance styles.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer__heading">Quick Links</h3>
+          <ul class="footer__links">
+            <li><a href="about.html" class="footer__link">About Us</a></li>
+            <li><a href="services.html" class="footer__link">Classes</a></li>
+            <li><a href="pricing.html" class="footer__link">Pricing</a></li>
+            <li><a href="blog.html" class="footer__link">Blog</a></li>
+            <li><a href="contact.html" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Dance Styles</h3>
+          <ul class="footer__links">
+            <li><a href="service-detail.html" class="footer__link">Ballet</a></li>
+            <li><a href="service-detail.html" class="footer__link">Contemporary</a></li>
+            <li><a href="service-detail.html" class="footer__link">Hip Hop</a></li>
+            <li><a href="service-detail.html" class="footer__link">Jazz</a></li>
+            <li><a href="service-detail.html" class="footer__link">Salsa</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Contact Info</h3>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link"><i class="fas fa-map-marker-alt" style="width:16px;margin-inline-end:8px;"></i>123 Dance Ave, Suite 100</a></li>
+            <li><a href="tel:+15551234567" class="footer__link"><i class="fas fa-phone" style="width:16px;margin-inline-end:8px;"></i>(555) 123-4567</a></li>
+            <li><a href="mailto:info@alandance.com" class="footer__link"><i class="fas fa-envelope" style="width:16px;margin-inline-end:8px;"></i>info@alandance.com</a></li>
+            <li><span class="footer__link"><i class="fas fa-clock" style="width:16px;margin-inline-end:8px;"></i>Mon-Sat: 8AM - 9PM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Alan. All rights reserved.</p>
+        
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+  <script src="../assets/js/modules/theme.js"></script>
+  <script src="../assets/js/modules/rtl.js"></script>
+  <script src="../assets/js/modules/navigation.js"></script>
+  <script src="../assets/js/modules/animations.js"></script>
+  <script src="../assets/js/modules/dashboard.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

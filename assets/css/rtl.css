@@ -1,0 +1,141 @@
+/* ========================================
+   DANCE STUDIO — RTL Overrides
+   Uses CSS logical properties throughout
+   ======================================== */
+
+/* === Base Direction & Fonts === */
+[dir="rtl"] {
+  --font-body: 'Inter', 'Cairo', sans-serif;
+  --font-heading: 'Playfair Display', 'Amiri', serif;
+  --font-accent: 'Dancing Script', 'Amiri', serif;
+  
+  font-family: var(--font-body);
+}
+
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3,
+[dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+  font-family: var(--font-heading);
+}
+
+[dir="rtl"] .text-accent {
+  font-family: var(--font-accent);
+}
+
+/* === Layout Mirroring === */
+@media (max-width: 768px) {
+  [dir="rtl"] .navbar__menu {
+    transform: translateX(-100%);
+  }
+
+  [dir="rtl"] .navbar__menu.open {
+    transform: translateX(0);
+  }
+}
+
+/* Flip directional icons */
+[dir="rtl"] .fa-arrow-right::before { content: "\f060"; }
+[dir="rtl"] .fa-chevron-right::before { content: "\f053"; }
+[dir="rtl"] .fa-arrow-left::before { content: "\f061"; }
+[dir="rtl"] .fa-chevron-left::before { content: "\f054"; }
+
+/* === Timeline RTL === */
+[dir="rtl"] .timeline::before {
+  inset-inline-start: 50%;
+}
+
+[dir="rtl"] .timeline-item:nth-child(odd) {
+  text-align: end;
+}
+
+[dir="rtl"] .timeline-item:nth-child(even) {
+  text-align: start;
+}
+
+/* === Dashboard Sidebar === */
+[dir="rtl"] .dashboard__sidebar {
+  border-inline-end: 1px solid var(--border-color);
+  border-inline-start: none;
+}
+
+/* === Scroll Progress === */
+[dir="rtl"] .scroll-progress {
+  transform-origin: right;
+}
+
+/* === Carousel / Marquee === */
+[dir="rtl"] .marquee__track {
+  animation-direction: reverse;
+}
+
+/* === Form adjustments === */
+[dir="rtl"] .form-input,
+[dir="rtl"] .form-textarea,
+[dir="rtl"] .form-select {
+  text-align: start;
+}
+
+/* === Pricing card check icon === */
+[dir="rtl"] .pricing-feature i {
+  margin-inline-end: var(--space-2);
+  margin-inline-start: 0;
+}
+
+/* === Blog detail TOC === */
+[dir="rtl"] .toc__link {
+  padding-inline-start: var(--space-4);
+  border-inline-start: 2px solid transparent;
+}
+
+[dir="rtl"] .toc__link.active {
+  border-inline-start-color: var(--color-primary);
+}
+
+/* === General text alignment === */
+[dir="rtl"] .text-start { text-align: start; }
+[dir="rtl"] .text-end { text-align: end; }
+
+/* === Process steps connector line === */
+[dir="rtl"] .process-step::after {
+  inset-inline-start: auto;
+  inset-inline-end: 100%;
+}
+
+/* === Chat bubbles === */
+[dir="rtl"] .chat-message--sent {
+  margin-inline-start: auto;
+  margin-inline-end: 0;
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-sm) var(--radius-md);
+}
+
+[dir="rtl"] .chat-message--received {
+  margin-inline-end: auto;
+  margin-inline-start: 0;
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) var(--radius-sm);
+}
+
+/* === Animations for RTL === */
+[dir="rtl"] .reveal--left {
+  transform: translateX(50px);
+}
+
+[dir="rtl"] .reveal--right {
+  transform: translateX(-50px);
+}
+
+[dir="rtl"] .reveal--left.revealed,
+[dir="rtl"] .reveal--right.revealed {
+  transform: translateX(0);
+}
+
+/* === Contact info icon alignment === */
+[dir="rtl"] .contact-card__icon {
+  margin-inline-end: 0;
+  margin-inline-start: var(--space-4);
+}
+
+/* === Back to top position === */
+@media (max-width: 768px) {
+  [dir="rtl"] .back-to-top {
+    inset-inline-end: var(--space-4);
+  }
+}

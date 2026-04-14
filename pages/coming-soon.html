@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon — Alan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Dancing+Script:wght@400..700&family=Cairo:wght@300..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/auth.css">
+  <style>
+    .coming-soon{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .coming-soon__bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,70,193,.9),rgba(26,32,44,.95),rgba(255,107,107,.7));background-size:300% 300%;animation:gradientShift 12s ease infinite}
+    .coming-soon__particles{position:absolute;inset:0}
+    .coming-soon__content{position:relative;z-index:1;text-align:center;padding:var(--space-8);max-width:650px}
+    .coming-soon__logo{width:80px;height:80px;margin:0 auto var(--space-6);background:rgba(255,255,255,.15);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:2rem;color:white;backdrop-filter:blur(10px);animation:float 6s ease-in-out infinite}
+
+    .coming-soon__label{font-family:var(--font-accent);color:var(--color-accent);font-size:var(--font-size-xl);margin-bottom:var(--space-4)}
+    .coming-soon__title{font-size:clamp(2.5rem,6vw,4.5rem);color:white;margin-bottom:var(--space-4);line-height:1.1}
+    .coming-soon__text{font-size:var(--font-size-lg);color:rgba(255,255,255,.7);margin-bottom:var(--space-10);max-width:500px;margin-inline:auto}
+
+    /* COUNTDOWN */
+    .countdown{display:flex;justify-content:center;gap:var(--space-6);margin-bottom:var(--space-12)}
+    .countdown__item{text-align:center}
+    .countdown__number{font-size:clamp(2.5rem,5vw,4rem);font-weight:var(--font-weight-black);color:white;line-height:1;min-width:80px;padding:var(--space-4);background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-md)}
+    .countdown__label{font-size:var(--font-size-sm);color:rgba(255,255,255,.5);margin-top:var(--space-2);text-transform:uppercase;letter-spacing:var(--letter-spacing-wider)}
+
+    .coming-soon__form{max-width:450px;margin:0 auto var(--space-8)}
+    .coming-soon__form-inner{display:flex;gap:var(--space-3)}
+    .coming-soon__input{flex:1;padding:var(--space-3) var(--space-5);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-sm);color:white;font-family:var(--font-body);font-size:var(--font-size-base);outline:none;transition:border-color .3s ease}
+    .coming-soon__input::placeholder{color:rgba(255,255,255,.4)}
+    .coming-soon__input:focus{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15)}
+
+    .coming-soon__social{display:flex;justify-content:center;gap:var(--space-4)}
+    .coming-soon__social a{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:white;font-size:var(--font-size-lg);transition:all .3s ease;text-decoration:none}
+    .coming-soon__social a:hover{background:rgba(255,255,255,.25);transform:translateY(-4px)}
+
+    @media(max-width:480px){.countdown{gap:var(--space-3)}.countdown__number{font-size:var(--font-size-2xl);padding:var(--space-3);min-width:60px}.coming-soon__form-inner{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="coming-soon">
+    <div class="coming-soon__bg"></div>
+    <canvas class="coming-soon__particles" id="comingSoonParticles"></canvas>
+
+    <div class="auth-topbar">
+      <a href="../index.html" class="navbar__logo" style="text-decoration:none;">
+        <div class="navbar__logo-icon"><i class="fas fa-music"></i></div>
+        <div class="navbar__logo-text"><span>Alan</span></div>
+      </a>
+      <div class="auth-toggles" style="display:flex; gap:var(--space-2);">
+        <button class="navbar__action-btn" data-rtl-toggle aria-label="Toggle RTL"><i class="fas fa-globe"></i></button>
+        <button class="navbar__action-btn" data-theme-toggle aria-label="Theme"><i class="fas fa-moon"></i></button>
+      </div>
+    </div>
+
+    <div class="coming-soon__content">
+      <div class="coming-soon__logo"><i class="fas fa-music"></i></div>
+      <p class="coming-soon__label">Something amazing is in the works</p>
+      <h1 class="coming-soon__title">Our New Studio is <span style="background:linear-gradient(135deg,#FF6B6B,#ECC94B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Coming Soon</span></h1>
+      <p class="coming-soon__text">We're building a brand-new 10,000 sq ft facility with cutting-edge studios, a performance theater, and more. Be the first to know when we launch!</p>
+
+      <div class="countdown" id="countdown">
+        <div class="countdown__item"><div class="countdown__number" id="days">00</div><div class="countdown__label">Days</div></div>
+        <div class="countdown__item"><div class="countdown__number" id="hours">00</div><div class="countdown__label">Hours</div></div>
+        <div class="countdown__item"><div class="countdown__number" id="minutes">00</div><div class="countdown__label">Minutes</div></div>
+        <div class="countdown__item"><div class="countdown__number" id="seconds">00</div><div class="countdown__label">Seconds</div></div>
+      </div>
+
+      <div class="coming-soon__form">
+        <p style="color:rgba(255,255,255,.6);font-size:var(--font-size-sm);margin-bottom:var(--space-3)">Get notified when we launch:</p>
+        <form class="coming-soon__form-inner" data-validate>
+          <input type="email" class="coming-soon__input" placeholder="Enter your email" required aria-label="Email">
+          <button type="submit" class="btn btn--primary btn--lg">Notify Me</button>
+        </form>
+      </div>
+
+      <div class="coming-soon__social">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/modules/theme.js"></script>
+  <script src="../assets/js/modules/rtl.js"></script>
+  <script src="../assets/js/modules/navigation.js"></script>
+  <script src="../assets/js/modules/animations.js"></script>
+  <script src="../assets/js/modules/dashboard.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // Countdown timer (target: 90 days from now)
+    const target = new Date();
+    target.setDate(target.getDate() + 90);
+    function updateCountdown() {
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) return;
+      document.getElementById('days').textContent = String(Math.floor(diff / 86400000)).padStart(2, '0');
+      document.getElementById('hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Particles
+    Animations.initParticles('comingSoonParticles');
+  </script>
+</body>
+</html>

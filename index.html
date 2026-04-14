@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alan — Premium dance classes in Ballet, Contemporary, Hip Hop, Jazz and more. Join our vibrant dance community today.">
+  <meta property="og:title" content="Alan — Studio Overview">
+  <meta property="og:description" content="Premium dance classes for all levels. Ballet, Contemporary, Hip Hop, Jazz and more.">
+  <title>Alan — Studio Overview</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Dancing+Script:wght@400..700&family=Cairo:wght@300..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/rtl.css">
+
+  <style>
+    /* ============ HERO ============ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero__video-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .hero__video-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        linear-gradient(135deg, rgba(107,70,193,0.85) 0%, rgba(26,32,44,0.9) 50%, rgba(255,107,107,0.6) 100%);
+      background-size: 300% 300%;
+      animation: gradientShift 12s ease infinite;
+    }
+    .hero__particles { position: absolute; inset: 0; }
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.5) 100%);
+    }
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding-top: var(--space-24);
+    }
+    .hero__label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-accent);
+      font-size: var(--font-size-xl);
+      color: var(--color-accent);
+      margin-bottom: var(--space-4);
+      opacity: 0;
+      animation: fadeUp 0.8s ease 1.8s forwards;
+    }
+    .hero__title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      color: white;
+      line-height: 1.1;
+      margin-bottom: var(--space-6);
+      opacity: 0;
+      animation: fadeUp 0.8s ease 2s forwards;
+    }
+    .hero__title .highlight {
+      display: inline-block;
+      background: var(--gradient-primary-reverse);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero__desc {
+      font-size: var(--font-size-lg);
+      color: rgba(255,255,255,0.8);
+      max-width: 550px;
+      margin-bottom: var(--space-8);
+      opacity: 0;
+      animation: fadeUp 0.8s ease 2.2s forwards;
+    }
+    .hero__buttons {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 2.4s forwards;
+    }
+    .hero__scroll {
+      position: absolute;
+      bottom: var(--space-8);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      color: rgba(255,255,255,0.6);
+      font-size: var(--font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: var(--letter-spacing-widest);
+      animation: float 3s ease-in-out infinite;
+    }
+    .hero__scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);
+    }
+    /* Decorative shapes */
+    .hero__shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      z-index: 1;
+    }
+    .hero__shape--1 {
+      width: 400px; height: 400px;
+      background: var(--color-accent);
+      top: -100px; right: -100px;
+      animation: floatSlow 8s ease-in-out infinite;
+    }
+    .hero__shape--2 {
+      width: 300px; height: 300px;
+      background: var(--color-primary);
+      bottom: -80px; left: -80px;
+      animation: floatSlow 10s ease-in-out infinite reverse;
+    }
+
+    /* ============ SERVICES GRID ============ */
+    .services-section { background: var(--bg-primary); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+    }
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-8);
+      text-align: center;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      inset-inline: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover {
+      transform: translateY(-12px);
+      box-shadow: var(--shadow-xl);
+      border-color: rgba(var(--color-primary-rgb), 0.3);
+    }
+    .service-card__icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--space-6);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-3xl);
+      background: rgba(var(--color-primary-rgb), 0.1);
+      color: var(--color-primary);
+      transition: all 0.4s ease;
+    }
+    .service-card:hover .service-card__icon {
+      background: var(--gradient-primary);
+      color: white;
+      transform: scale(1.1) rotate(5deg);
+    }
+    .service-card__title {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--space-3);
+    }
+    .service-card__text {
+      font-size: var(--font-size-sm);
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-4);
+    }
+    .service-card__link {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      transition: gap 0.3s ease;
+    }
+    .service-card__link:hover { gap: var(--space-3); }
+
+    /* ============ INSTRUCTORS ============ */
+    .instructors-section {
+      background: var(--bg-secondary);
+      overflow: hidden;
+    }
+    .instructors-scroll {
+      display: flex;
+      gap: var(--space-8);
+      overflow-x: auto;
+      padding-bottom: var(--space-4);
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      cursor: grab;
+    }
+    .instructors-scroll::-webkit-scrollbar { display: none; }
+    .instructor-card {
+      min-width: 300px;
+      scroll-snap-align: start;
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      group: true;
+    }
+    .instructor-card__image {
+      width: 300px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      transition: transform 0.6s ease;
+    }
+    .instructor-card:hover .instructor-card__image {
+      transform: scale(1.05);
+    }
+    .instructor-card__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,32,44,0.9) 0%, transparent 50%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: var(--space-6);
+    }
+    .instructor-card__name {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: white;
+      margin-bottom: var(--space-1);
+    }
+    .instructor-card__role {
+      font-size: var(--font-size-sm);
+      color: var(--color-accent);
+      font-family: var(--font-accent);
+    }
+    .instructor-card__social {
+      display: flex;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+    }
+    .instructor-card:hover .instructor-card__social {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .instructor-card__social a {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: var(--font-size-sm);
+      transition: background 0.3s ease;
+    }
+    .instructor-card__social a:hover {
+      background: var(--color-primary);
+    }
+
+    /* ============ TESTIMONIALS ============ */
+    .testimonials-section { background: var(--bg-primary); position: relative; overflow: hidden; }
+    .testimonials-section::before {
+      content: '"';
+      position: absolute;
+      top: 5%;
+      inset-inline-start: 5%;
+      font-size: 20rem;
+      font-family: var(--font-heading);
+      color: rgba(var(--color-primary-rgb), 0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .testimonial-carousel {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .testimonial-slide {
+      display: none;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+    .testimonial-slide.active { display: block; }
+    .testimonial-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-10);
+    }
+    .testimonial-card__stars {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-1);
+      margin-bottom: var(--space-6);
+      color: #ECC94B;
+      font-size: var(--font-size-lg);
+    }
+    .testimonial-card__text {
+      font-size: var(--font-size-lg);
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: var(--line-height-relaxed);
+      margin-bottom: var(--space-8);
+    }
+    .testimonial-card__author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+    }
+    .testimonial-card__avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-circle);
+      object-fit: cover;
+      border: 3px solid var(--color-primary);
+    }
+    .testimonial-card__name {
+      font-weight: var(--font-weight-semibold);
+      color: var(--text-primary);
+    }
+    .testimonial-card__title {
+      font-size: var(--font-size-sm);
+      color: var(--text-tertiary);
+    }
+    .testimonial-nav {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-top: var(--space-8);
+    }
+    .testimonial-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--color-primary);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      padding: 0;
+    }
+    .testimonial-dot.active {
+      background: var(--color-primary);
+    }
+
+    /* ============ SCHEDULE ============ */
+    .schedule-section { background: var(--bg-secondary); }
+    .schedule-widget {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .schedule__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+    }
+    .schedule__nav-btn {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .schedule__nav-btn:hover {
+      background: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary);
+    }
+    .schedule__week-title {
+      font-weight: var(--font-weight-semibold);
+    }
+    .schedule__days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .schedule__day-label {
+      padding: var(--space-3);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: var(--letter-spacing-wider);
+      color: var(--text-tertiary);
+      border-inline-end: 1px solid var(--border-color);
+    }
+    .schedule__day-label:last-child { border-inline-end: none; }
+    .schedule__body {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      min-height: 300px;
+    }
+    .schedule__column {
+      border-inline-end: 1px solid var(--border-color);
+      padding: var(--space-2);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .schedule__column:last-child { border-inline-end: none; }
+    .schedule__event {
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border-inline-start: 3px solid;
+    }
+    .schedule__event:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-md);
+    }
+    .schedule__event--ballet {
+      background: rgba(var(--color-primary-rgb), 0.1);
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+    .schedule__event--hiphop {
+      background: rgba(var(--color-accent-rgb), 0.1);
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+    .schedule__event--contemporary {
+      background: rgba(72,187,120,0.1);
+      border-color: #48BB78;
+      color: #48BB78;
+    }
+    .schedule__event--jazz {
+      background: rgba(236,201,75,0.1);
+      border-color: #D69E2E;
+      color: #D69E2E;
+    }
+    .schedule__event--salsa {
+      background: rgba(183,110,121,0.1);
+      border-color: var(--color-rose-gold);
+      color: var(--color-rose-gold);
+    }
+    .schedule__event-time {
+      display: block;
+      font-size: 10px;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+
+    /* ============ NEWSLETTER ============ */
+    .newsletter-section {
+      background: var(--color-midnight);
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(107,70,193,0.3) 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(255,107,107,0.2) 0%, transparent 40%);
+    }
+    .newsletter__inner {
+      position: relative;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .newsletter__title {
+      font-size: var(--font-size-3xl);
+      color: white;
+      margin-bottom: var(--space-4);
+    }
+    .newsletter__text {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: var(--space-8);
+    }
+    .newsletter__form {
+      display: flex;
+      gap: var(--space-3);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .newsletter__input {
+      flex: 1;
+      padding: var(--space-4) var(--space-6);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-sm);
+      color: white;
+      font-family: var(--font-body);
+      font-size: var(--font-size-base);
+      outline: none;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .newsletter__input::placeholder { color: rgba(255,255,255,0.4); }
+    .newsletter__input:focus {
+      border-color: var(--color-primary);
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: 1fr; }
+      .schedule__days, .schedule__body { grid-template-columns: repeat(3, 1fr); }
+      .schedule__column:nth-child(n+4) { display: none; }
+      .schedule__day-label:nth-child(n+4) { display: none; }
+      .newsletter__form { flex-direction: column; }
+      .hero__title { padding-top: var(--space-8); }
+      .hero__scroll { display: none; }
+    }
+    @media (max-width: 480px) {
+      .schedule__days, .schedule__body { grid-template-columns: repeat(2, 1fr); }
+      .schedule__column:nth-child(n+3) { display: none; }
+      .schedule__day-label:nth-child(n+3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="custom-cursor"></div>
+  <div class="scroll-progress"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo">
+          <div class="navbar__logo-icon"><i class="fas fa-music"></i></div>
+          <div class="navbar__logo-text"><span>Alan</span></div>
+        </a>
+        
+        <ul class="navbar__menu">
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Home <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="index.html" class="navbar__dropdown-item">Home 1</a></li>
+              <li><a href="pages/home-2.html" class="navbar__dropdown-item">Home 2</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="pages/about.html" class="navbar__link">About</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Services <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="pages/services.html" class="navbar__dropdown-item">Services</a></li>
+              <li><a href="pages/service-detail.html" class="navbar__dropdown-item">Service Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Blog <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="pages/blog.html" class="navbar__dropdown-item">Blogs</a></li>
+              <li><a href="pages/blog-detail.html" class="navbar__dropdown-item">Blog Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="pages/pricing.html" class="navbar__link">Pricing</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Dashboard <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="pages/admin-dashboard.html" class="navbar__dropdown-item">Admin</a></li>
+              <li><a href="pages/dashboard.html" class="navbar__dropdown-item">Dashboard</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="pages/contact.html" class="navbar__link">Contact</a></li>
+          <li class="navbar__mobile-login"><a href="pages/login.html" class="btn btn--primary">Sign In</a></li>
+          <li class="navbar__menu-footer">
+            <div class="navbar__menu-contact">
+              <p>Get in touch</p>
+              <a href="mailto:info@alanstudio.com">info@alanstudio.com</a>
+            </div>
+            <div class="navbar__menu-socials">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </li>
+        </ul>
+        
+        <div class="navbar__actions">
+          <a href="pages/login.html" class="btn" style="padding:0.5rem 1.25rem;border-radius:var(--radius-full);margin-inline-end:0.5rem;background:var(--gradient-primary);color:white;border:none;transition:none;transform:none;box-shadow:none;">Sign In</a>
+          <button class="navbar__action-btn" data-rtl-toggle aria-label="Toggle RTL">
+            <i class="fas fa-globe"></i>
+          </button>
+          <button class="navbar__action-btn" data-theme-toggle aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="navbar__mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div></div></nav>
+
+  <main>
+    <!-- ========== SECTION 1: HERO ========== -->
+    <section class="hero" id="hero">
+      <div class="hero__bg">
+        <div class="hero__video-wrap">
+          <div class="hero__video-bg"></div>
+        </div>
+        <canvas class="hero__particles" id="heroParticles"></canvas>
+        <div class="hero__overlay"></div>
+        <div class="hero__shape hero__shape--1"></div>
+        <div class="hero__shape hero__shape--2"></div>
+      </div>
+
+      <div class="container">
+        <div class="hero__content">
+          <span class="hero__label">
+            <i class="fas fa-sparkles"></i> Welcome to Alan
+          </span>
+          <h1 class="hero__title">
+            Discover the Art of<br>
+            <span class="highlight">Dance & Expression</span>
+          </h1>
+          <p class="hero__desc">
+            From classical ballet to urban hip-hop, our world-class instructors guide 
+            you through an unforgettable journey of movement, rhythm, and self-discovery.
+          </p>
+          <div class="hero__buttons">
+            <a href="pages/services.html" class="btn btn--primary btn--lg">
+              Explore Classes <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="#schedule" class="btn btn--secondary btn--lg" style="border-color:rgba(255,255,255,0.3);color:white;">
+              <i class="fas fa-calendar"></i> View Schedule
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__scroll">
+        <span>Scroll</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 2: SERVICES GRID ========== -->
+    <section class="section services-section" id="services">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-star"></i> Our Programs</span>
+          <h2 class="section-header__title">Dance Styles We <span class="text-gradient">Teach</span></h2>
+          <p class="section-header__desc">Discover a wide range of dance styles taught by passionate professionals</p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card card--tilt reveal stagger-1">
+            <div class="service-card__icon"><i class="fas fa-shoe-prints"></i></div>
+            <h3 class="service-card__title">Classical Ballet</h3>
+            <p class="service-card__text">Graceful movements and precise technique. Foundation of all dance forms, from beginner to pointe.</p>
+            <a href="pages/service-detail.html" class="service-card__link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="service-card card--tilt reveal stagger-2">
+            <div class="service-card__icon"><i class="fas fa-wind"></i></div>
+            <h3 class="service-card__title">Contemporary</h3>
+            <p class="service-card__text">Fluid, expressive movement that blends multiple styles. Explore your emotional range through dance.</p>
+            <a href="pages/service-detail.html" class="service-card__link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="service-card card--tilt reveal stagger-3">
+            <div class="service-card__icon"><i class="fas fa-headphones-simple"></i></div>
+            <h3 class="service-card__title">Hip Hop</h3>
+            <p class="service-card__text">High-energy urban dance with popping, locking, breaking and freestyle elements.</p>
+            <a href="pages/service-detail.html" class="service-card__link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="service-card card--tilt reveal stagger-4">
+            <div class="service-card__icon"><i class="fas fa-music"></i></div>
+            <h3 class="service-card__title">Jazz & Musical</h3>
+            <p class="service-card__text">Dynamic and theatrical dance perfect for stage performances and musical productions.</p>
+            <a href="pages/service-detail.html" class="service-card__link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="service-card card--tilt reveal stagger-5">
+            <div class="service-card__icon"><i class="fas fa-fire"></i></div>
+            <h3 class="service-card__title">Latin & Salsa</h3>
+            <p class="service-card__text">Passionate partner dances — salsa, bachata, cha-cha. Feel the rhythm and connection.</p>
+            <a href="pages/service-detail.html" class="service-card__link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="service-card card--tilt reveal stagger-6">
+            <div class="service-card__icon"><i class="fas fa-child-reaching"></i></div>
+            <h3 class="service-card__title">Kids Dance</h3>
+            <p class="service-card__text">Fun, age-appropriate classes that build confidence, coordination and a love for movement.</p>
+            <a href="pages/service-detail.html" class="service-card__link">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 3: INSTRUCTORS ========== -->
+    <section class="section instructors-section" id="instructors">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-users"></i> Meet the Team</span>
+          <h2 class="section-header__title">World-Class <span class="text-gradient">Instructors</span></h2>
+          <p class="section-header__desc">Learn from award-winning dancers and choreographers with decades of experience</p>
+        </div>
+
+        <div class="instructors-scroll" id="instructorScroll">
+          <div class="instructor-card reveal stagger-1">
+            <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=500&fit=crop&crop=face" alt="Sofia Martinez" class="instructor-card__image" loading="lazy">
+            <div class="instructor-card__overlay">
+              <h3 class="instructor-card__name">Sofia Martinez</h3>
+              <span class="instructor-card__role">Ballet & Contemporary</span>
+              <div class="instructor-card__social">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="instructor-card reveal stagger-2">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=500&fit=crop&crop=face" alt="Marcus Johnson" class="instructor-card__image" loading="lazy">
+            <div class="instructor-card__overlay">
+              <h3 class="instructor-card__name">Marcus Johnson</h3>
+              <span class="instructor-card__role">Hip Hop & Breaking</span>
+              <div class="instructor-card__social">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="instructor-card reveal stagger-3">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=500&fit=crop&crop=face" alt="Amira Khalil" class="instructor-card__image" loading="lazy">
+            <div class="instructor-card__overlay">
+              <h3 class="instructor-card__name">Amira Khalil</h3>
+              <span class="instructor-card__role">Jazz & Musical Theater</span>
+              <div class="instructor-card__social">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="instructor-card reveal stagger-4">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face" alt="David Chen" class="instructor-card__image" loading="lazy">
+            <div class="instructor-card__overlay">
+              <h3 class="instructor-card__name">David Chen</h3>
+              <span class="instructor-card__role">Latin & Salsa</span>
+              <div class="instructor-card__social">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="instructor-card reveal stagger-5">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=500&fit=crop&crop=face" alt="Elena Petrova" class="instructor-card__image" loading="lazy">
+            <div class="instructor-card__overlay">
+              <h3 class="instructor-card__name">Elena Petrova</h3>
+              <span class="instructor-card__role">Classical & Pointe</span>
+              <div class="instructor-card__social">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 4: TESTIMONIALS ========== -->
+    <section class="section testimonials-section" id="testimonials">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-heart"></i> Student Stories</span>
+          <h2 class="section-header__title">What Our Students <span class="text-gradient">Say</span></h2>
+          <p class="section-header__desc">Real stories from our vibrant dance community</p>
+        </div>
+
+        <div class="testimonial-carousel reveal" id="testimonialCarousel">
+          <div class="testimonial-slide active">
+            <div class="testimonial-card card--glass">
+              <div class="testimonial-card__stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testimonial-card__text">"Alan transformed my relationship with dance. The instructors don't just teach steps — they ignite a passion that stays with you long after class ends. I've grown more in 6 months here than in years elsewhere."</p>
+              <div class="testimonial-card__author">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Sarah Mitchell" class="testimonial-card__avatar" loading="lazy">
+                <div>
+                  <div class="testimonial-card__name">Sarah Mitchell</div>
+                  <div class="testimonial-card__title">Ballet Student, 2 Years</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-slide">
+            <div class="testimonial-card card--glass">
+              <div class="testimonial-card__stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testimonial-card__text">"The hip-hop program here is unreal. Marcus brings such incredible energy and makes every class feel like a performance. I've gained so much confidence on and off the dance floor."</p>
+              <div class="testimonial-card__author">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="James Rodriguez" class="testimonial-card__avatar" loading="lazy">
+                <div>
+                  <div class="testimonial-card__name">James Rodriguez</div>
+                  <div class="testimonial-card__title">Hip Hop Student, 1 Year</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-slide">
+            <div class="testimonial-card card--glass">
+              <div class="testimonial-card__stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+              </div>
+              <p class="testimonial-card__text">"My daughter absolutely loves the kids' program. The teachers are patient, creative, and make every child feel special. She's learned discipline and teamwork while having the time of her life!"</p>
+              <div class="testimonial-card__author">
+                <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=100&h=100&fit=crop&crop=face" alt="Linda Park" class="testimonial-card__avatar" loading="lazy">
+                <div>
+                  <div class="testimonial-card__name">Linda Park</div>
+                  <div class="testimonial-card__title">Parent, Kids Dance Program</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-nav" id="testimonialNav">
+            <button class="testimonial-dot active" data-slide="0" aria-label="Slide 1"></button>
+            <button class="testimonial-dot" data-slide="1" aria-label="Slide 2"></button>
+            <button class="testimonial-dot" data-slide="2" aria-label="Slide 3"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 5: SCHEDULE ========== -->
+    <section class="section schedule-section" id="schedule">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-calendar-alt"></i> Weekly Schedule</span>
+          <h2 class="section-header__title">Class <span class="text-gradient">Timetable</span></h2>
+          <p class="section-header__desc">Plan your dance week with our interactive schedule</p>
+        </div>
+
+        <div class="schedule-widget reveal">
+          <div class="schedule__header">
+            <button class="schedule__nav-btn" aria-label="Previous week"><i class="fas fa-chevron-left"></i></button>
+            <span class="schedule__week-title">This Week — April 7 – 13, 2026</span>
+            <button class="schedule__nav-btn" aria-label="Next week"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div class="schedule__days">
+            <div class="schedule__day-label">Mon</div>
+            <div class="schedule__day-label">Tue</div>
+            <div class="schedule__day-label">Wed</div>
+            <div class="schedule__day-label">Thu</div>
+            <div class="schedule__day-label">Fri</div>
+            <div class="schedule__day-label">Sat</div>
+            <div class="schedule__day-label">Sun</div>
+          </div>
+          <div class="schedule__body">
+            <div class="schedule__column">
+              <div class="schedule__event schedule__event--ballet">Ballet I<span class="schedule__event-time">9:00 AM</span></div>
+              <div class="schedule__event schedule__event--hiphop">Hip Hop<span class="schedule__event-time">5:00 PM</span></div>
+            </div>
+            <div class="schedule__column">
+              <div class="schedule__event schedule__event--contemporary">Contemporary<span class="schedule__event-time">10:00 AM</span></div>
+              <div class="schedule__event schedule__event--jazz">Jazz Funk<span class="schedule__event-time">3:00 PM</span></div>
+            </div>
+            <div class="schedule__column">
+              <div class="schedule__event schedule__event--ballet">Ballet II<span class="schedule__event-time">9:00 AM</span></div>
+              <div class="schedule__event schedule__event--salsa">Salsa<span class="schedule__event-time">7:00 PM</span></div>
+            </div>
+            <div class="schedule__column">
+              <div class="schedule__event schedule__event--hiphop">Breaking<span class="schedule__event-time">4:00 PM</span></div>
+              <div class="schedule__event schedule__event--contemporary">Lyrical<span class="schedule__event-time">6:00 PM</span></div>
+            </div>
+            <div class="schedule__column">
+              <div class="schedule__event schedule__event--ballet">Pointe<span class="schedule__event-time">10:00 AM</span></div>
+              <div class="schedule__event schedule__event--jazz">Musical<span class="schedule__event-time">2:00 PM</span></div>
+              <div class="schedule__event schedule__event--hiphop">Freestyle<span class="schedule__event-time">6:00 PM</span></div>
+            </div>
+            <div class="schedule__column">
+              <div class="schedule__event schedule__event--salsa">Bachata<span class="schedule__event-time">11:00 AM</span></div>
+              <div class="schedule__event schedule__event--contemporary">Improv<span class="schedule__event-time">2:00 PM</span></div>
+            </div>
+            <div class="schedule__column">
+              <div class="schedule__event schedule__event--ballet">Open Ballet<span class="schedule__event-time">10:00 AM</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 6: NEWSLETTER ========== -->
+    <section class="section newsletter-section" id="newsletter">
+      <div class="container">
+        <div class="newsletter__inner reveal">
+          <span class="section-header__label" style="color:var(--color-accent);"><i class="fas fa-envelope"></i> Stay Connected</span>
+          <h2 class="newsletter__title">Join Our Dance Community</h2>
+          <p class="newsletter__text">Get exclusive updates on new classes, workshops, performances, and special offers delivered to your inbox.</p>
+          <form class="newsletter__form" data-validate>
+            <input type="email" class="newsletter__input form-input" placeholder="Enter your email address" required aria-label="Email address">
+            <button type="submit" class="btn btn--primary btn--lg">
+              Subscribe <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" role="contentinfo">
+    <svg class="footer__wave" viewBox="0 0 2880 48" preserveAspectRatio="none">
+      <path d="M0 48h2880V0c-396 24-792 36-1188 36S396 24 0 0v48z" fill="var(--bg-primary)" opacity="0.3"/>
+      <path d="M0 48h2880V12c-396 18-792 26-1188 26S396 30 0 12v36z" fill="var(--bg-primary)" opacity="0.5"/>
+    </svg>
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo" style="margin-bottom: var(--space-4);"><div class="navbar__logo-icon"><i class="fas fa-music"></i></div><div class="navbar__logo-text"><span>Alan</span></div></a>
+          <p class="footer__brand-desc">Where movement meets artistry. We've been inspiring dancers since 2010, creating a welcoming space for all skill levels and dance styles.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer__heading">Quick Links</h3>
+          <ul class="footer__links">
+            <li><a href="pages/about.html" class="footer__link">About Us</a></li>
+            <li><a href="pages/services.html" class="footer__link">Classes</a></li>
+            <li><a href="pages/pricing.html" class="footer__link">Pricing</a></li>
+            <li><a href="pages/blog.html" class="footer__link">Blog</a></li>
+            <li><a href="pages/contact.html" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Dance Styles</h3>
+          <ul class="footer__links">
+            <li><a href="pages/service-detail.html" class="footer__link">Ballet</a></li>
+            <li><a href="pages/service-detail.html" class="footer__link">Contemporary</a></li>
+            <li><a href="pages/service-detail.html" class="footer__link">Hip Hop</a></li>
+            <li><a href="pages/service-detail.html" class="footer__link">Jazz</a></li>
+            <li><a href="pages/service-detail.html" class="footer__link">Salsa</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Contact Info</h3>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link"><i class="fas fa-map-marker-alt" style="width:16px;margin-inline-end:8px;"></i>123 Dance Ave, Suite 100</a></li>
+            <li><a href="tel:+15551234567" class="footer__link"><i class="fas fa-phone" style="width:16px;margin-inline-end:8px;"></i>(555) 123-4567</a></li>
+            <li><a href="mailto:info@alandance.com" class="footer__link"><i class="fas fa-envelope" style="width:16px;margin-inline-end:8px;"></i>info@alandance.com</a></li>
+            <li><span class="footer__link"><i class="fas fa-clock" style="width:16px;margin-inline-end:8px;"></i>Mon-Sat: 8AM - 9PM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Alan. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="assets/js/modules/theme.js"></script>
+  <script src="assets/js/modules/rtl.js"></script>
+  <script src="assets/js/modules/navigation.js"></script>
+  <script src="assets/js/modules/animations.js"></script>
+  <script src="assets/js/modules/dashboard.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Hero particles
+    Animations.initParticles('heroParticles');
+
+    // Testimonial carousel
+    (function() {
+      const slides = document.querySelectorAll('.testimonial-slide');
+      const dots = document.querySelectorAll('.testimonial-dot');
+      let current = 0;
+      let interval;
+
+      function goTo(index) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = index;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+
+      function next() {
+        goTo((current + 1) % slides.length);
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          clearInterval(interval);
+          goTo(parseInt(dot.dataset.slide));
+          interval = setInterval(next, 5000);
+        });
+      });
+
+      interval = setInterval(next, 5000);
+    })();
+
+    // Instructor scroll drag
+    (function() {
+      const scroll = document.getElementById('instructorScroll');
+      if (!scroll) return;
+      let isDown = false, startX, scrollLeft;
+      scroll.addEventListener('mousedown', (e) => {
+        isDown = true;
+        scroll.style.cursor = 'grabbing';
+        startX = e.pageX - scroll.offsetLeft;
+        scrollLeft = scroll.scrollLeft;
+      });
+      scroll.addEventListener('mouseleave', () => { isDown = false; scroll.style.cursor = 'grab'; });
+      scroll.addEventListener('mouseup', () => { isDown = false; scroll.style.cursor = 'grab'; });
+      scroll.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - scroll.offsetLeft;
+        scroll.scrollLeft = scrollLeft - (x - startX) * 2;
+      });
+    })();
+  </script>
+</body>
+</html>

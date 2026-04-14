@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alan Dashboard — Manage classes, track students, view analytics.">
+  <title>Dashboard — Alan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Dancing+Script:wght@400..700&family=Cairo:wght@300..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../assets/css/rtl.css">
+</head>
+<body>
+  <!-- Animated Cosmic Background -->
+  <div class="landing__bg" style="position: fixed; inset: 0; z-index: -1;">
+    <div class="landing__bg-gradient"></div>
+    <canvas class="landing__particles" id="landing-particles"></canvas>
+  </div>
+
+  <div class="dashboard">
+    <!-- SIDEBAR -->
+    <aside class="dashboard__sidebar" id="dashboardSidebar">
+      <div class="dashboard__sidebar-header">
+        <a href="../index.html" class="navbar__logo" style="text-decoration:none;">
+          <div class="navbar__logo-icon"><i class="fas fa-music"></i></div>
+          <div class="navbar__logo-text"><span>Alan</span></div>
+        </a>
+        <button class="sidebar-toggle" aria-label="Toggle sidebar"><i class="fas fa-chevron-left"></i></button>
+      </div>
+
+
+
+      <nav class="dashboard__nav">
+        <div class="dashboard__nav-section">
+          <div class="dashboard__nav-title">Main</div>
+          <a href="#" class="dashboard__nav-item active" ><i class="fas fa-chart-pie"></i> <span>Overview</span></a>
+
+          <a href="#" class="dashboard__nav-item" ><i class="fas fa-calendar-alt"></i> <span>Schedule</span></a>
+
+          <a href="#" class="dashboard__nav-item" data-role="user"><i class="fas fa-book-open"></i> <span>My Classes</span></a>
+        </div>
+        <div class="dashboard__nav-section">
+          <div class="dashboard__nav-title">Management</div>
+
+          <a href="#" class="dashboard__nav-item" ><i class="fas fa-chart-line"></i> <span>Analytics</span></a>
+          <a href="#" class="dashboard__nav-item" ><i class="fas fa-comments"></i> <span>Messages</span></a>
+          <a href="#" class="dashboard__nav-item" data-role="user"><i class="fas fa-trophy"></i> <span>Achievements</span></a>
+        </div>
+        <div class="dashboard__nav-section">
+          <div class="dashboard__nav-title">Settings</div>
+          <a href="#" class="dashboard__nav-item" ><i class="fas fa-cog"></i> <span>Settings</span></a>
+          <a href="#" class="dashboard__nav-item" ><i class="fas fa-user-circle"></i> <span>Profile</span></a>
+          <a href="login.html" class="dashboard__nav-item"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="dashboard__main">
+      <!-- TOP BAR -->
+      <header class="dashboard__topbar">
+        <div class="dashboard__topbar-left">
+          <button class="dashboard__mobile-menu-btn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+          <div>
+            <h1 style="font-size:var(--font-size-2xl);margin-bottom:var(--space-1)">Dashboard</h1>
+            <p style="font-size:var(--font-size-sm);color:var(--text-tertiary)">Welcome back, Sofia! Here's what's happening today.</p>
+          </div>
+        </div>
+        <div class="dashboard__topbar-right">
+          <button class="navbar__action-btn" data-rtl-toggle aria-label="Toggle RTL">
+            <i class="fas fa-globe"></i>
+          </button>
+          <button class="navbar__action-btn" data-theme-toggle><i class="fas fa-moon"></i></button>
+          <button class="navbar__action-btn" style="position:relative"><i class="fas fa-bell"></i><span style="position:absolute;top:2px;inset-inline-end:2px;width:8px;height:8px;background:var(--color-accent);border-radius:50%"></span></button>
+          <div style="display:flex;align-items:center;gap:var(--space-2)">
+            <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=40&h=40&fit=crop&crop=face" alt="Sofia" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--color-primary)">
+            <div style="display:none" class="dashboard__user-info"><span style="font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold)">Sofia M.</span></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD CONTENT -->
+      <div class="dashboard__content">
+
+
+        <!-- STATS ROW (User) -->
+        <!-- USER PROFILE BANNER -->
+        <div class="user-profile-banner" style="margin-bottom: var(--space-6); background: var(--bg-card); border-radius: var(--radius-lg); padding: var(--space-6); border: 1px solid var(--border-color); display: flex; align-items: center; gap: var(--space-6); position: relative; overflow: hidden;">
+          <div class="user-profile-banner__bg" style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.1) 0%, rgba(var(--color-accent-rgb), 0.1) 100%); z-index: 0;"></div>
+          <div style="position: relative; z-index: 1; display: flex; align-items: center; gap: var(--space-6); width: 100%; flex-wrap: wrap;">
+            <div style="position: relative;">
+                <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=100&h=100&fit=crop&crop=face" alt="Sofia" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:4px solid var(--bg-card); box-shadow: var(--shadow-md);">
+                <div style="position: absolute; bottom: 5px; right: 5px; width: 24px; height: 24px; background: var(--color-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; border: 2px solid var(--bg-card);"><i class="fas fa-bolt" style="font-size: 10px;"></i></div>
+            </div>
+            <div style="flex: 1; min-width: 200px;">
+                <h2 style="font-size: var(--font-size-3xl); font-family: var(--font-heading); margin-bottom: var(--space-1);">Sofia Milani</h2>
+                <div style="display: flex; align-items: center; gap: var(--space-3); color: var(--text-tertiary); font-size: var(--font-size-sm);">
+                    <span style="background: rgba(var(--color-primary-rgb), 0.1); color: var(--color-primary); padding: 2px 8px; border-radius: var(--radius-full); font-weight: var(--font-weight-bold);">Elite Student</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Studio A</span>
+                </div>
+                <div style="margin-top: var(--space-4); display: flex; gap: var(--space-6);">
+                    <div><div style="font-weight: var(--font-weight-bold); font-size: var(--font-size-lg);">24</div><div style="font-size: var(--font-size-xs); color: var(--text-tertiary);">CLASSES</div></div>
+                    <div><div style="font-weight: var(--font-weight-bold); font-size: var(--font-size-lg);">14</div><div style="font-size: var(--font-size-xs); color: var(--text-tertiary);">BADGES</div></div>
+                    <div><div style="font-weight: var(--font-weight-bold); font-size: var(--font-size-lg);">8</div><div style="font-size: var(--font-size-xs); color: var(--text-tertiary);">STREAK</div></div>
+                </div>
+            </div>
+            <div class="level-progress" style="width: 120px; height: 120px; position: relative;">
+                <svg width="120" height="120" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="50" fill="none" stroke="var(--border-color)" stroke-width="10"></circle>
+                    <circle class="level-progress-ring" cx="60" cy="60" r="50" fill="none" stroke="url(#bannerGradient)" stroke-width="10" stroke-dasharray="314" stroke-dashoffset="78" stroke-linecap="round" transform="rotate(-90 60 60)"></circle>
+                    <defs>
+                        <linearGradient id="bannerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:var(--color-primary);stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:var(--color-accent);stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                    <div style="font-size: var(--font-size-xs); color: var(--text-tertiary);">LEVEL</div>
+                    <div style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--color-primary);">12</div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard__grid" style="grid-template-columns: repeat(12, 1fr); gap: var(--space-6);">
+          <!-- NOVEL AREA CHART: ACTIVITY WAVE -->
+          <div class="dashboard__card chart-card" style="grid-column: span 8; height: 350px;">
+            <div class="chart-card__header">
+              <h3 class="chart-card__title"><i class="fas fa-wave-square"></i> Activity Wave</h3>
+              <div style="font-size: var(--font-size-xs); color: var(--text-tertiary);">Average focus this week</div>
+            </div>
+            <div class="wave-chart" data-values="[30, 60, 45, 80, 50, 90, 70]" data-labels='["M", "T", "W", "T", "F", "S", "S"]' style="height: 250px;"></div>
+          </div>
+
+          <!-- GAMIFIED BADGES: HEXAGON HONEYCOMB -->
+          <div class="dashboard__card chart-card" style="grid-column: span 4; height: 350px;">
+            <div class="chart-card__header">
+                <h3 class="chart-card__title"><i class="fas fa-trophy"></i> Mastery Badges</h3>
+            </div>
+            <div class="hexagon-badges" style="height: 250px; display: flex; align-items: center; justify-content: center;"></div>
+          </div>
+
+          <!-- CONCENTRIC GOAL RINGS -->
+          <div class="dashboard__card chart-card" style="grid-column: span 4; height: 400px;">
+            <div class="chart-card__header">
+                <h3 class="chart-card__title"><i class="fas fa-bullseye"></i> Goal Tracking</h3>
+            </div>
+            <div class="goal-rings" style="height: 300px; display: flex; align-items: center; justify-content: center;"></div>
+          </div>
+
+          <!-- SKILL RADAR (Keeping for value, but restyling container) -->
+          <div class="dashboard__card chart-card" style="grid-column: span 4; height: 400px;">
+            <div class="chart-card__header"><h3 class="chart-card__title"><i class="fas fa-magic"></i> Skill Evolution</h3></div>
+            <div class="radar-chart" data-values="[85, 70, 90, 65, 80]" data-labels='["Technique","Rhythm","Flexibility","Performance","Strength"]' style="display:flex;justify-content:center"></div>
+          </div>
+
+          <!-- ATTENDANCE RADIUS VIEW -->
+          <div class="dashboard__card chart-card" style="grid-column: span 4; height: 400px;">
+            <div class="chart-card__header"><h3 class="chart-card__title"><i class="fas fa-fingerprint"></i> Activity Heat</h3></div>
+            <div class="attendance-heatmap"></div>
+            <div style="display:flex;justify-content:space-between;margin-top:var(--space-2);font-size:10px;color:var(--text-tertiary)">
+              <span>Low</span>
+              <div style="display:flex;gap:2px">
+                <div style="width:10px;height:10px;background:var(--border-color);border-radius:2px"></div>
+                <div style="width:10px;height:10px;background:var(--color-primary);opacity:0.4;border-radius:2px"></div>
+                <div style="width:10px;height:10px;background:var(--color-primary);opacity:1;border-radius:2px"></div>
+              </div>
+              <span>High</span>
+            </div>
+          </div>
+
+          <!-- TODAY'S SCHEDULE -->
+          <div class="dashboard__card chart-card" style="grid-column: span 12;">
+            <div class="chart-card__header"><h3 class="chart-card__title"><i class="fas fa-calendar-day"></i> Today's Schedule</h3></div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);background:rgba(var(--color-primary-rgb),.05);border-radius:var(--radius-sm);border-inline-start:3px solid var(--color-primary)">
+                <div style="min-width:50px;text-align:center"><div style="font-weight:var(--font-weight-bold)">9:00</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">AM</div></div>
+                <div><div style="font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm)">Ballet I — Beginner</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">Studio A • Sofia M. • 14/20 students</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);background:rgba(var(--color-accent-rgb),.05);border-radius:var(--radius-sm);border-inline-start:3px solid var(--color-accent)">
+                <div style="min-width:50px;text-align:center"><div style="font-weight:var(--font-weight-bold)">11:00</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">AM</div></div>
+                <div><div style="font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm)">Hip Hop — All Levels</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">Studio B • Marcus J. • 18/20 students</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);background:rgba(72,187,120,.05);border-radius:var(--radius-sm);border-inline-start:3px solid #48BB78">
+                <div style="min-width:50px;text-align:center"><div style="font-weight:var(--font-weight-bold)">3:00</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">PM</div></div>
+                <div><div style="font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm)">Contemporary — Intermediate</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">Studio A • Amira K. • 12/15 students</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);background:rgba(183,110,121,.05);border-radius:var(--radius-sm);border-inline-start:3px solid var(--color-rose-gold)">
+                <div style="min-width:50px;text-align:center"><div style="font-weight:var(--font-weight-bold)">7:00</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">PM</div></div>
+                <div><div style="font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm)">Salsa Night — Social Dance</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">Main Hall • David C. • Open enrollment</div></div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <!-- DIRECT CHAT (User) -->
+          <div class="dashboard__card chart-card" style="grid-column: span 12; padding:0; display:flex; flex-direction:column; overflow:hidden; margin-top:var(--space-4)">
+            <!-- Chat Header -->
+            <div style="padding:var(--space-3) var(--space-4);background:rgba(var(--color-primary-rgb),0.05);border-bottom:1px solid var(--border-color);display:flex;align-items:center;gap:var(--space-3)">
+              <div style="position:relative">
+                <div style="width:36px;height:36px;border-radius:50%;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;color:white;font-size:var(--font-size-sm)"><i class="fas fa-headset"></i></div>
+                <span style="position:absolute;bottom:0;right:-2px;width:10px;height:10px;background:#48BB78;border-radius:50%;border:2px solid var(--bg-card)"></span>
+              </div>
+              <div>
+                <div style="font-weight:var(--font-weight-bold);font-size:var(--font-size-sm)">Studio Support</div>
+                <div style="font-size:10px;color:var(--text-tertiary)">Typically replies in 10 mins</div>
+              </div>
+              <div style="margin-left:auto;color:var(--text-tertiary)"><i class="fas fa-ellipsis-v"></i></div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-messages" style="height:250px;overflow-y:auto;display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4);background:var(--bg-secondary)">
+              <div class="chat-message chat-message--received" style="display:flex;gap:var(--space-2);align-items:flex-end">
+                <div style="width:24px;height:24px;border-radius:50%;background:var(--color-primary);display:flex;align-items:center;justify-content:center;color:white;font-size:10px;flex-shrink:0"><i class="fas fa-headset"></i></div>
+                <div style="display:flex;flex-direction:column;gap:2px">
+                  <div class="chat-message__bubble" style="background:var(--bg-card);padding:var(--space-2) var(--space-3);border-radius:var(--radius-md) var(--radius-md) var(--radius-md) 0;font-size:var(--font-size-sm);border:1px solid var(--border-color)">Hi Sofia! Do you need help booking your class?</div>
+                  <span class="chat-message__time" style="font-size:10px;color:var(--text-tertiary)">10:24 AM</span>
+                </div>
+              </div>
+              <div class="chat-message chat-message--sent" style="align-self:flex-end;text-align:end;display:flex;flex-direction:column;gap:2px">
+                <div class="chat-message__bubble" style="background:var(--gradient-primary);color:white;padding:var(--space-2) var(--space-3);border-radius:var(--radius-md) var(--radius-md) 0 var(--radius-md);font-size:var(--font-size-sm);border:none;box-shadow:var(--shadow-sm)">Yes, please! I'm trying to book Tuesday's Ballet.</div>
+                <span class="chat-message__time" style="font-size:10px;color:var(--text-tertiary)">10:26 AM</span>
+              </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input" style="display:flex;gap:var(--space-2);padding:var(--space-3);background:var(--bg-card);border-top:1px solid var(--border-color)">
+              <button class="btn btn--icon" style="background:transparent;color:var(--text-tertiary);border:none;padding:0 var(--space-1);cursor:pointer"><i class="fas fa-paperclip"></i></button>
+              <input type="text" class="form-input" placeholder="Message support..." style="flex:1;padding:var(--space-2) var(--space-3);font-size:var(--font-size-sm);border-radius:var(--radius-full);background:var(--bg-secondary);border:none">
+              <button class="btn btn--primary" style="width:36px;height:36px;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center"><i class="fas fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div class="dashboard__mobile-nav">
+      <button class="dashboard__mobile-nav-item active"><i class="fas fa-chart-pie"></i><span>Overview</span></button>
+      <button class="dashboard__mobile-nav-item"><i class="fas fa-calendar"></i><span>Schedule</span></button>
+      <button class="dashboard__mobile-nav-item"><i class="fas fa-comments"></i><span>Chat</span></button>
+      <button class="dashboard__mobile-nav-item"><i class="fas fa-cog"></i><span>Settings</span></button>
+    </div>
+  </div>
+
+  <script src="../assets/js/modules/theme.js"></script>
+  <script src="../assets/js/modules/rtl.js"></script>
+  <script src="../assets/js/modules/navigation.js"></script>
+  <script src="../assets/js/modules/animations.js"></script>
+  <script src="../assets/js/modules/dashboard.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

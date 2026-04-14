@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create your Alan account and start dancing today.">
+  <title>Sign Up — Alan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Dancing+Script:wght@400..700&family=Cairo:wght@300..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/rtl.css">
+  <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body>
+  <div class="auth-page">
+    <!-- Animated Cosmic Background -->
+    <div class="landing__bg" style="position: fixed; inset: 0; z-index: -1;">
+      <div class="landing__bg-gradient"></div>
+      <canvas class="landing__particles" id="landing-particles"></canvas>
+    </div>
+
+    <!-- Perfectly Aligned Topbar for Toggles & Back -->
+    <div class="auth-topbar">
+      <a href="../index.html" class="navbar__logo" style="text-decoration:none;">
+        <div class="navbar__logo-icon"><i class="fas fa-music"></i></div>
+        <div class="navbar__logo-text"><span>Alan</span></div>
+      </a>
+      <div class="auth-toggles">
+        <button class="navbar__action-btn" data-theme-toggle aria-label="Theme"><i class="fas fa-moon"></i></button>
+        <button class="navbar__action-btn" data-rtl-toggle aria-label="Toggle RTL"><i class="fas fa-globe"></i></button>
+      </div>
+    </div>
+
+    <!-- Centered Glass Card -->
+    <div class="auth-container">
+      <div class="auth-glass-card">
+        <h1 class="auth-title">Create Account</h1>
+        <p class="auth-subtitle">Already have an account? <a href="login.html">Sign in</a></p>
+
+        <div class="auth-social">
+          <button class="auth-social__btn"><i class="fab fa-google" style="color:#EA4335"></i> Google</button>
+          <button class="auth-social__btn"><i class="fab fa-facebook-f" style="color:#1877F2"></i> Facebook</button>
+        </div>
+        <div class="auth-divider"><span>or fill out form</span></div>
+
+        <form class="auth-form" data-validate>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label" for="firstName">First Name</label><input type="text" class="form-input" id="firstName" placeholder="John" required><span class="form-error">Required</span></div>
+            <div class="form-group"><label class="form-label" for="lastName">Last Name</label><input type="text" class="form-input" id="lastName" placeholder="Doe" required><span class="form-error">Required</span></div>
+          </div>
+          <div class="form-group"><label class="form-label" for="regEmail">Email Address</label><input type="email" class="form-input" id="regEmail" placeholder="you@example.com" required><span class="form-error">Valid email required</span></div>
+          <div class="form-group">
+            <label class="form-label" for="regPassword">Password</label>
+            <div class="password-wrap">
+              <input type="password" class="form-input" id="regPassword" placeholder="Min 8 characters" required data-password-strength="#passwordMeter">
+              <button type="button" class="password-toggle" aria-label="Toggle password" onclick="const i=this.previousElementSibling;i.type=i.type==='password'?'text':'password';this.innerHTML=i.type==='password'?'<i class=\'fas fa-eye\'></i>':'<i class=\'fas fa-eye-slash\'></i>'"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="password-strength" id="passwordMeter" data-strength="0"><div class="password-strength__bar"></div></div>
+            <span class="form-error">Min 8 characters required</span>
+          </div>
+          <div class="auth-form__terms">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+          </div>
+          <button type="submit" class="btn btn--lg" style="width:100%; background:var(--gradient-primary); color:white; border:none; transition:none; transform:none; box-shadow:none;">
+            Create Account <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/modules/theme.js"></script><script src="../assets/js/modules/rtl.js"></script><script src="../assets/js/modules/navigation.js"></script><script src="../assets/js/modules/animations.js"></script><script src="../assets/js/modules/dashboard.js"></script><script src="../assets/js/main.js"></script>
+</body>
+</html>

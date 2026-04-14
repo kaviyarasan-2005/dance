@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alan Pricing — Flexible plans for every dancer. Drop-in, class packs, and unlimited memberships.">
+  <title>Pricing — Alan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Dancing+Script:wght@400..700&family=Cairo:wght@300..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/rtl.css">
+  <style>
+    .page-hero{position:relative;padding:180px 0 100px;overflow:hidden;text-align:center}
+    .page-hero__bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,70,193,.9),rgba(26,32,44,.95),rgba(255,107,107,.7));background-size:300% 300%;animation:gradientShift 12s ease infinite}
+    .page-hero__content{position:relative;z-index:1}
+    .page-hero__breadcrumb{display:flex;align-items:center;justify-content:center;gap:var(--space-2);font-size:var(--font-size-sm);color:rgba(255,255,255,.6);margin-bottom:var(--space-4)}
+    .page-hero__breadcrumb a{color:rgba(255,255,255,.8);text-decoration:none}
+    .page-hero__title{font-size:clamp(2.5rem,5vw,4rem);color:white;margin-bottom:var(--space-4)}
+    .page-hero__desc{font-size:var(--font-size-lg);color:rgba(255,255,255,.7);max-width:600px;margin:0 auto}
+
+    .pricing-section{background:var(--bg-primary)}
+    .pricing-toggle-wrap{display:flex;align-items:center;justify-content:center;gap:var(--space-4);margin-bottom:var(--space-12)}
+    .pricing-toggle-label{font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:var(--text-secondary)}
+    .pricing-toggle{width:56px;height:28px;background:var(--border-color);border-radius:var(--radius-full);border:none;cursor:pointer;position:relative;transition:background .3s ease;padding:0}
+    .pricing-toggle::after{content:'';position:absolute;top:3px;inset-inline-start:3px;width:22px;height:22px;border-radius:50%;background:white;transition:transform .3s ease;box-shadow:var(--shadow-sm)}
+    .pricing-toggle.yearly{background:var(--color-primary)}
+    .pricing-toggle.yearly::after{transform:translateX(28px)}
+    [dir="rtl"] .pricing-toggle.yearly::after{transform:translateX(-28px)}
+    .pricing-badge{padding:var(--space-1) var(--space-3);background:rgba(72,187,120,.15);color:#48BB78;font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);border-radius:var(--radius-full)}
+
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-8);align-items:stretch}
+    .pricing-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:var(--space-8);position:relative;display:flex;flex-direction:column;transition:all .4s ease}
+    .pricing-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-xl)}
+    .pricing-card--popular{border-color:var(--color-primary);box-shadow:var(--shadow-glow)}
+    .pricing-card--popular::before{content:'Most Popular';position:absolute;top:-14px;inset-inline-start:50%;transform:translateX(-50%);padding:var(--space-1) var(--space-4);background:var(--gradient-primary);color:white;font-size:var(--font-size-xs);font-weight:var(--font-weight-bold);border-radius:var(--radius-full);white-space:nowrap}
+    [dir="rtl"] .pricing-card--popular::before{transform:translateX(50%)}
+    .pricing-card__name{font-size:var(--font-size-lg);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)}
+    .pricing-card__desc{font-size:var(--font-size-sm);color:var(--text-tertiary);margin-bottom:var(--space-6)}
+    .pricing-card__price{margin-bottom:var(--space-6)}
+    .pricing-card__amount{font-size:var(--font-size-5xl);font-weight:var(--font-weight-black);background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+    .pricing-card__period{font-size:var(--font-size-sm);color:var(--text-tertiary);margin-inline-start:var(--space-1)}
+    .pricing-card__divider{height:1px;background:var(--border-color);margin-bottom:var(--space-6)}
+    .pricing-card__features{list-style:none;margin-bottom:var(--space-8);flex:1}
+    .pricing-card__features li{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) 0;font-size:var(--font-size-sm);color:var(--text-secondary)}
+    .pricing-card__features li i.fa-check{color:#48BB78;width:16px}
+    .pricing-card__features li i.fa-times{color:var(--text-tertiary);width:16px;opacity:.4}
+    .pricing-card__features li.disabled{color:var(--text-tertiary);opacity:.5}
+    .pricing-card .btn{width:100%}
+
+    .pricing-faq{max-width:800px;margin:0 auto;padding-top:var(--space-12)}
+
+    .comparison-section{background:var(--bg-secondary);overflow-x:auto}
+    .comparison-table{width:100%;border-collapse:collapse;min-width:700px}
+    .comparison-table th,.comparison-table td{padding:var(--space-4);text-align:center;border:1px solid var(--border-color);font-size:var(--font-size-sm)}
+    .comparison-table th{background:var(--bg-card);font-weight:var(--font-weight-bold)}
+    .comparison-table th.highlight{background:var(--color-primary);color:white}
+    .comparison-table td.highlight{background:rgba(var(--color-primary-rgb),.03)}
+    .comparison-table td:first-child{text-align:start;font-weight:var(--font-weight-medium)}
+
+    @media(max-width:1024px){.pricing-grid{grid-template-columns:1fr;max-width:450px;margin-inline:auto}}
+  </style>
+</head>
+<body>
+  <div class="custom-cursor"></div><div class="scroll-progress"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="../index.html" class="navbar__logo">
+          <div class="navbar__logo-icon"><i class="fas fa-music"></i></div>
+          <div class="navbar__logo-text"><span>Alan</span></div>
+        </a>
+        
+        <ul class="navbar__menu">
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Home <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="../index.html" class="navbar__dropdown-item">Home 1</a></li>
+              <li><a href="home-2.html" class="navbar__dropdown-item">Home 2</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="about.html" class="navbar__link">About</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Services <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="services.html" class="navbar__dropdown-item">Services</a></li>
+              <li><a href="service-detail.html" class="navbar__dropdown-item">Service Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Blog <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="blog.html" class="navbar__dropdown-item">Blogs</a></li>
+              <li><a href="blog-detail.html" class="navbar__dropdown-item">Blog Details</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="pricing.html" class="navbar__link">Pricing</a></li>
+          <li class="navbar__item navbar__dropdown">
+            <a href="#" class="navbar__link navbar__dropdown-toggle">Dashboard <i class="fas fa-chevron-down"></i></a>
+            <ul class="navbar__dropdown-menu">
+              <li><a href="admin-dashboard.html" class="navbar__dropdown-item">Admin</a></li>
+              <li><a href="dashboard.html" class="navbar__dropdown-item">Dashboard</a></li>
+            </ul>
+          </li>
+          <li class="navbar__item"><a href="contact.html" class="navbar__link">Contact</a></li>
+          <li class="navbar__mobile-login"><a href="login.html" class="btn btn--primary">Sign In</a></li>
+          <li class="navbar__menu-footer">
+            <div class="navbar__menu-contact">
+              <p>Get in touch</p>
+              <a href="mailto:info@alanstudio.com">info@alanstudio.com</a>
+            </div>
+            <div class="navbar__menu-socials">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </li>
+        </ul>
+        
+        <div class="navbar__actions">
+          <a href="login.html" class="btn" style="padding:0.5rem 1.25rem;border-radius:var(--radius-full);margin-inline-end:0.5rem;background:var(--gradient-primary);color:white;border:none;transition:none;transform:none;box-shadow:none;">Sign In</a>
+          <button class="navbar__action-btn" data-rtl-toggle aria-label="Toggle RTL">
+            <i class="fas fa-globe"></i>
+          </button>
+          <button class="navbar__action-btn" data-theme-toggle aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="navbar__mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div></div></nav>
+
+  <main>
+    <section class="page-hero"><div class="page-hero__bg"></div><div class="container page-hero__content">
+      <div class="page-hero__breadcrumb"><a href="../index.html">Home</a> <i class="fas fa-chevron-right" style="font-size:10px"></i> <span>Pricing</span></div>
+      <h1 class="page-hero__title">Simple, Transparent <span class="text-gradient">Pricing</span></h1>
+      <p class="page-hero__desc">Flexible plans designed for every dancer. No hidden fees, no long-term contracts.</p>
+    </div></section>
+
+    <section class="section pricing-section">
+      <div class="container">
+        <div class="pricing-toggle-wrap reveal">
+          <span class="pricing-toggle-label">Monthly</span>
+          <button class="pricing-toggle" id="pricingToggle" aria-label="Toggle billing"></button>
+          <span class="pricing-toggle-label">Yearly</span>
+          <span class="pricing-badge">Save 20%</span>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- STARTER -->
+          <div class="pricing-card reveal stagger-1">
+            <div class="pricing-card__name">Starter</div>
+            <div class="pricing-card__desc">Perfect for trying out different styles</div>
+            <div class="pricing-card__price">
+              <span class="pricing-card__amount" data-price-monthly="$35" data-price-yearly="$28">$35</span>
+              <span class="pricing-card__period" data-period>/class</span>
+            </div>
+            <div class="pricing-card__divider"></div>
+            <ul class="pricing-card__features">
+              <li><i class="fas fa-check"></i> Pay-per-class flexibility</li>
+              <li><i class="fas fa-check"></i> Access to all group classes</li>
+              <li><i class="fas fa-check"></i> Free trial class</li>
+              <li><i class="fas fa-check"></i> Basic progress tracking</li>
+              <li class="disabled"><i class="fas fa-times"></i> Video library access</li>
+              <li class="disabled"><i class="fas fa-times"></i> Priority booking</li>
+              <li class="disabled"><i class="fas fa-times"></i> Private coaching</li>
+            </ul>
+            <a href="register.html" class="btn btn--ghost">Get Started</a>
+          </div>
+
+          <!-- PRO -->
+          <div class="pricing-card pricing-card--popular reveal stagger-2">
+            <div class="pricing-card__name">Pro Dancer</div>
+            <div class="pricing-card__desc">Our most popular membership for serious dancers</div>
+            <div class="pricing-card__price">
+              <span class="pricing-card__amount" data-price-monthly="$149" data-price-yearly="$119">$149</span>
+              <span class="pricing-card__period" data-period>/month</span>
+            </div>
+            <div class="pricing-card__divider"></div>
+            <ul class="pricing-card__features">
+              <li><i class="fas fa-check"></i> <strong>Unlimited</strong> group classes</li>
+              <li><i class="fas fa-check"></i> Full video library access</li>
+              <li><i class="fas fa-check"></i> Priority class booking</li>
+              <li><i class="fas fa-check"></i> Advanced analytics dashboard</li>
+              <li><i class="fas fa-check"></i> 2 private sessions/month</li>
+              <li><i class="fas fa-check"></i> Community hub access</li>
+              <li class="disabled"><i class="fas fa-times"></i> Unlimited private coaching</li>
+            </ul>
+            <a href="register.html" class="btn btn--primary">Start Pro Trial</a>
+          </div>
+
+          <!-- ELITE -->
+          <div class="pricing-card reveal stagger-3">
+            <div class="pricing-card__name">Elite</div>
+            <div class="pricing-card__desc">All-inclusive for dedicated professionals</div>
+            <div class="pricing-card__price">
+              <span class="pricing-card__amount" data-price-monthly="$299" data-price-yearly="$239">$299</span>
+              <span class="pricing-card__period" data-period>/month</span>
+            </div>
+            <div class="pricing-card__divider"></div>
+            <ul class="pricing-card__features">
+              <li><i class="fas fa-check"></i> <strong>Everything in Pro</strong></li>
+              <li><i class="fas fa-check"></i> Unlimited private coaching</li>
+              <li><i class="fas fa-check"></i> Competition preparation</li>
+              <li><i class="fas fa-check"></i> Guest instructor workshops</li>
+              <li><i class="fas fa-check"></i> Studio rental hours included</li>
+              <li><i class="fas fa-check"></i> Dedicated success manager</li>
+              <li><i class="fas fa-check"></i> Performance opportunities</li>
+            </ul>
+            <a href="register.html" class="btn btn--ghost">Contact Sales</a>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="pricing-faq">
+          <div class="section-header reveal" style="margin-top:var(--space-16)">
+            <span class="section-header__label"><i class="fas fa-circle-question"></i> FAQ</span>
+            <h2 class="section-header__title">Common <span class="text-gradient">Questions</span></h2>
+          </div>
+          <div class="reveal">
+            <div class="accordion-item"><button class="accordion-btn">Can I switch plans at any time? <span class="icon"><i class="fas fa-chevron-down"></i></span></button><div class="accordion-content"><div class="accordion-content__inner"><p>Yes! You can upgrade or downgrade your plan at any time. Changes take effect at the start of your next billing cycle. No penalties or hidden fees.</p></div></div></div>
+            <div class="accordion-item"><button class="accordion-btn">Is there a free trial? <span class="icon"><i class="fas fa-chevron-down"></i></span></button><div class="accordion-content"><div class="accordion-content__inner"><p>Absolutely! Every new student gets their first class free regardless of the plan. Pro and Elite members get a full 7-day free trial.</p></div></div></div>
+            <div class="accordion-item"><button class="accordion-btn">What's your cancellation policy? <span class="icon"><i class="fas fa-chevron-down"></i></span></button><div class="accordion-content"><div class="accordion-content__inner"><p>You can cancel your membership at any time with no cancellation fee. Monthly plans end at the current billing period. Yearly plans can be refunded pro-rata within the first 30 days.</p></div></div></div>
+            <div class="accordion-item"><button class="accordion-btn">Do you offer family or student discounts? <span class="icon"><i class="fas fa-chevron-down"></i></span></button><div class="accordion-content"><div class="accordion-content__inner"><p>Yes! We offer 15% family discounts (2+ members), 20% student discounts with valid ID, and 25% senior discounts (65+). Contact us for group rates for 5+ people.</p></div></div></div>
+            <div class="accordion-item"><button class="accordion-btn">What payment methods do you accept? <span class="icon"><i class="fas fa-chevron-down"></i></span></button><div class="accordion-content"><div class="accordion-content__inner"><p>We accept all major credit/debit cards, PayPal, Apple Pay, Google Pay, and bank transfers. Corporate billing is available for Elite plans.</p></div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="section comparison-section">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-header__label"><i class="fas fa-table"></i> Compare</span>
+          <h2 class="section-header__title">Full Plan <span class="text-gradient">Comparison</span></h2>
+        </div>
+        <div style="overflow-x:auto" class="reveal">
+          <table class="comparison-table">
+            <thead><tr><th>Feature</th><th>Starter</th><th class="highlight">Pro Dancer</th><th>Elite</th></tr></thead>
+            <tbody>
+              <tr><td>Group Classes</td><td>Pay-per-class</td><td class="highlight"><strong>Unlimited</strong></td><td>Unlimited</td></tr>
+              <tr><td>Private Sessions</td><td>$75/hr add-on</td><td class="highlight">2/month</td><td><strong>Unlimited</strong></td></tr>
+              <tr><td>Video Library</td><td><i class="fas fa-times" style="color:var(--color-accent)"></i></td><td class="highlight"><i class="fas fa-check" style="color:#48BB78"></i></td><td><i class="fas fa-check" style="color:#48BB78"></i></td></tr>
+              <tr><td>Progress Analytics</td><td>Basic</td><td class="highlight"><strong>Advanced</strong></td><td><strong>Advanced + AI</strong></td></tr>
+              <tr><td>Priority Booking</td><td><i class="fas fa-times" style="color:var(--color-accent)"></i></td><td class="highlight"><i class="fas fa-check" style="color:#48BB78"></i></td><td><i class="fas fa-check" style="color:#48BB78"></i></td></tr>
+              <tr><td>Community Hub</td><td><i class="fas fa-times" style="color:var(--color-accent)"></i></td><td class="highlight"><i class="fas fa-check" style="color:#48BB78"></i></td><td><i class="fas fa-check" style="color:#48BB78"></i></td></tr>
+              <tr><td>Workshops</td><td>$50/workshop</td><td class="highlight">50% off</td><td><strong>Included</strong></td></tr>
+              <tr><td>Studio Rental</td><td>$80/hr</td><td class="highlight">$40/hr</td><td><strong>5 hrs free/mo</strong></td></tr>
+              <tr><td>Support</td><td>Email</td><td class="highlight">Priority email</td><td><strong>Dedicated manager</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <svg class="footer__wave" viewBox="0 0 2880 48" preserveAspectRatio="none">
+      <path d="M0 48h2880V0c-396 24-792 36-1188 36S396 24 0 0v48z" fill="var(--bg-primary)" opacity="0.3"/>
+      <path d="M0 48h2880V12c-396 18-792 26-1188 26S396 30 0 12v36z" fill="var(--bg-primary)" opacity="0.5"/>
+    </svg>
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="../index.html" class="navbar__logo" style="margin-bottom: var(--space-4);"><div class="navbar__logo-icon"><i class="fas fa-music"></i></div><div class="navbar__logo-text"><span>Alan</span></div></a>
+          <p class="footer__brand-desc">Where movement meets artistry. We've been inspiring dancers since 2010, creating a welcoming space for all skill levels and dance styles.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="footer__social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer__heading">Quick Links</h3>
+          <ul class="footer__links">
+            <li><a href="about.html" class="footer__link">About Us</a></li>
+            <li><a href="services.html" class="footer__link">Classes</a></li>
+            <li><a href="pricing.html" class="footer__link">Pricing</a></li>
+            <li><a href="blog.html" class="footer__link">Blog</a></li>
+            <li><a href="contact.html" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Dance Styles</h3>
+          <ul class="footer__links">
+            <li><a href="service-detail.html" class="footer__link">Ballet</a></li>
+            <li><a href="service-detail.html" class="footer__link">Contemporary</a></li>
+            <li><a href="service-detail.html" class="footer__link">Hip Hop</a></li>
+            <li><a href="service-detail.html" class="footer__link">Jazz</a></li>
+            <li><a href="service-detail.html" class="footer__link">Salsa</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Contact Info</h3>
+          <ul class="footer__links">
+            <li><a href="#" class="footer__link"><i class="fas fa-map-marker-alt" style="width:16px;margin-inline-end:8px;"></i>123 Dance Ave, Suite 100</a></li>
+            <li><a href="tel:+15551234567" class="footer__link"><i class="fas fa-phone" style="width:16px;margin-inline-end:8px;"></i>(555) 123-4567</a></li>
+            <li><a href="mailto:info@alandance.com" class="footer__link"><i class="fas fa-envelope" style="width:16px;margin-inline-end:8px;"></i>info@alandance.com</a></li>
+            <li><span class="footer__link"><i class="fas fa-clock" style="width:16px;margin-inline-end:8px;"></i>Mon-Sat: 8AM - 9PM</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Alan. All rights reserved.</p>
+        
+      </div>
+    </div>
+  </footer>
+  <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+  <script src="../assets/js/modules/theme.js"></script><script src="../assets/js/modules/rtl.js"></script><script src="../assets/js/modules/navigation.js"></script><script src="../assets/js/modules/animations.js"></script><script src="../assets/js/modules/dashboard.js"></script><script src="../assets/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alan Dashboard — Manage classes, track students, view analytics.">
+  <title>Dashboard — Alan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300..800&family=Dancing+Script:wght@400..700&family=Cairo:wght@300..900&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/animations.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <link rel="stylesheet" href="../assets/css/rtl.css">
+</head>
+<body>
+  <!-- Animated Cosmic Background -->
+  <div class="landing__bg" style="position: fixed; inset: 0; z-index: -1;">
+    <div class="landing__bg-gradient"></div>
+    <canvas class="landing__particles" id="landing-particles"></canvas>
+  </div>
+
+  <div class="dashboard">
+    <!-- SIDEBAR -->
+    <aside class="dashboard__sidebar" id="dashboardSidebar">
+      <div class="dashboard__sidebar-header">
+        <a href="../index.html" class="navbar__logo" style="text-decoration:none;">
+          <div class="navbar__logo-icon"><i class="fas fa-music"></i></div>
+          <div class="navbar__logo-text"><span>Alan</span></div>
+        </a>
+        <button class="sidebar-toggle" aria-label="Toggle sidebar"><i class="fas fa-chevron-left"></i></button>
+      </div>
+
+
+
+      <nav class="dashboard__nav">
+        <div class="dashboard__nav-section">
+          <div class="dashboard__nav-title">Main</div>
+          <a href="#" class="dashboard__nav-item active" data-role="admin,user"><i class="fas fa-chart-pie"></i> <span>Overview</span></a>
+          <a href="#" class="dashboard__nav-item" data-role="admin"><i class="fas fa-users"></i> <span>Students</span></a>
+          <a href="#" class="dashboard__nav-item" ><i class="fas fa-calendar-alt"></i> <span>Schedule</span></a>
+          <a href="#" class="dashboard__nav-item" data-role="admin"><i class="fas fa-chalkboard-teacher"></i> <span>Instructors</span></a>
+
+        </div>
+        <div class="dashboard__nav-section">
+          <div class="dashboard__nav-title">Management</div>
+          <a href="#" class="dashboard__nav-item" data-role="admin"><i class="fas fa-credit-card"></i> <span>Payments</span></a>
+          <a href="#" class="dashboard__nav-item" ><i class="fas fa-chart-line"></i> <span>Analytics</span></a>
+          <a href="#" class="dashboard__nav-item" ><i class="fas fa-comments"></i> <span>Messages</span></a>
+
+        </div>
+        <div class="dashboard__nav-section">
+          <div class="dashboard__nav-title">Settings</div>
+          <a href="#" class="dashboard__nav-item" ><i class="fas fa-cog"></i> <span>Settings</span></a>
+          <a href="#" class="dashboard__nav-item" ><i class="fas fa-user-circle"></i> <span>Profile</span></a>
+          <a href="login.html" class="dashboard__nav-item"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="dashboard__main">
+      <!-- TOP BAR -->
+      <header class="dashboard__topbar">
+        <div class="dashboard__topbar-left">
+          <button class="dashboard__mobile-menu-btn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+          <div>
+            <h1 style="font-size:var(--font-size-2xl);margin-bottom:var(--space-1)">Dashboard</h1>
+            <p style="font-size:var(--font-size-sm);color:var(--text-tertiary)">Welcome back, Sofia! Here's what's happening today.</p>
+          </div>
+        </div>
+        <div class="dashboard__topbar-right">
+          <button class="navbar__action-btn" data-rtl-toggle aria-label="Toggle RTL">
+            <i class="fas fa-globe"></i>
+          </button>
+          <button class="navbar__action-btn" data-theme-toggle><i class="fas fa-moon"></i></button>
+          <button class="navbar__action-btn" style="position:relative"><i class="fas fa-bell"></i><span style="position:absolute;top:2px;inset-inline-end:2px;width:8px;height:8px;background:var(--color-accent);border-radius:50%"></span></button>
+          <div style="display:flex;align-items:center;gap:var(--space-2)">
+            <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=40&h=40&fit=crop&crop=face" alt="Sofia" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--color-primary)">
+            <div style="display:none" class="dashboard__user-info"><span style="font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold)">Sofia M.</span></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD CONTENT -->
+      <div class="dashboard__content">
+        <!-- STATS ROW (Admin) -->
+        <div class="dashboard__stats" data-role="admin">
+          <div class="stat-card">
+            <div class="stat-card__icon" style="background:rgba(var(--color-primary-rgb),.12);color:var(--color-primary)"><i class="fas fa-users"></i></div>
+            <div class="stat-card__info"><div class="stat-card__number" data-counter="2547">0</div><div class="stat-card__label">Total Students</div></div>
+            <div class="stat-card__trend stat-card__trend--up"><i class="fas fa-arrow-up"></i> 12%</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__icon" style="background:rgba(var(--color-accent-rgb),.12);color:var(--color-accent)"><i class="fas fa-dollar-sign"></i></div>
+            <div class="stat-card__info"><div class="stat-card__number" data-counter="48250" data-counter-prefix="$">0</div><div class="stat-card__label">Monthly Revenue</div></div>
+            <div class="stat-card__trend stat-card__trend--up"><i class="fas fa-arrow-up"></i> 8%</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__icon" style="background:rgba(72,187,120,.12);color:#48BB78"><i class="fas fa-calendar-check"></i></div>
+            <div class="stat-card__info"><div class="stat-card__number" data-counter="342">0</div><div class="stat-card__label">Classes This Week</div></div>
+            <div class="stat-card__trend stat-card__trend--up"><i class="fas fa-arrow-up"></i> 5%</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__icon" style="background:rgba(183,110,121,.12);color:var(--color-rose-gold)"><i class="fas fa-star"></i></div>
+            <div class="stat-card__info"><div class="stat-card__number">4.9</div><div class="stat-card__label">Avg Rating</div></div>
+            <div class="stat-card__trend stat-card__trend--up"><i class="fas fa-arrow-up"></i> 0.2</div>
+          </div>
+        </div>
+
+
+        <div class="dashboard__grid">
+          <!-- CHART: REVENUE -->
+          <div class="dashboard__card dashboard__card--wide chart-card" data-role="admin">
+            <div class="chart-card__header">
+              <h3 class="chart-card__title"><i class="fas fa-chart-line"></i> Revenue Trend</h3>
+              <div class="chart-card__actions">
+                <button class="chart-card__filter active">Week</button>
+                <button class="chart-card__filter">Month</button>
+              </div>
+            </div>
+            <div class="line-chart" data-values="[28000,32000,29000,35000,42000,38000,48250]" data-labels='["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]' style="min-height:250px"></div>
+          </div>
+
+
+          <!-- DONUT: ENROLLMENT -->
+          <div class="dashboard__card chart-card" data-role="admin">
+            <div class="chart-card__header"><h3 class="chart-card__title"><i class="fas fa-chart-pie"></i> Memberships</h3></div>
+            <div class="donut-chart" data-values='[{"label":"Pro","value":45,"color":"var(--color-primary)"},{"label":"Elite","value":25,"color":"var(--color-accent)"},{"label":"Starter","value":30,"color":"#48BB78"}]' style="display:flex;justify-content:center"></div>
+          </div>
+
+          <!-- HEATMAP: STUDIO LOAD -->
+          <div class="dashboard__card chart-card" data-role="admin">
+            <div class="chart-card__header"><h3 class="chart-card__title"><i class="fas fa-th"></i> Studio Load</h3></div>
+            <div class="activity-heatmap"></div>
+            <div style="display:flex;justify-content:space-between;margin-top:var(--space-2);font-size:10px;color:var(--text-tertiary)">
+              <span>Low</span>
+              <div style="display:flex;gap:2px">
+                <div style="width:10px;height:10px;background:var(--color-primary);opacity:0.1;border-radius:2px"></div>
+                <div style="width:10px;height:10px;background:var(--color-primary);opacity:0.4;border-radius:2px"></div>
+                <div style="width:10px;height:10px;background:var(--color-primary);opacity:0.7;border-radius:2px"></div>
+                <div style="width:10px;height:10px;background:var(--color-primary);opacity:1;border-radius:2px"></div>
+              </div>
+              <span>Peak</span>
+            </div>
+          </div>
+
+          <!-- PROGRESS RINGS -->
+          <div class="chart-card">
+            <div class="chart-card__header"><h3 class="chart-card__title"><i class="fas fa-star"></i> Performance</h3></div>
+            <div style="display:flex;justify-content:space-around;padding:var(--space-4) 0">
+              <div class="progress-ring" style="position:relative;width:100px;height:100px;display:inline-flex;align-items:center;justify-content:center" data-percent="87">
+                <svg width="100" height="100" style="position:absolute;top:0;left:0"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--border-color)" stroke-width="8"/><circle class="progress-ring__circle" cx="50" cy="50" r="42" fill="none" stroke="var(--color-primary)" stroke-width="8" transform="rotate(-90 50 50)" stroke-linecap="round"/></svg>
+                <div class="progress-ring__text" style="font-weight:var(--font-weight-bold);font-size:var(--font-size-lg)">0%</div>
+                <div style="position:absolute;bottom:-25px;width:100%;text-align:center;font-size:var(--font-size-xs);color:var(--text-tertiary)">Attendance</div>
+              </div>
+              <div class="progress-ring" style="position:relative;width:100px;height:100px;display:inline-flex;align-items:center;justify-content:center" data-percent="72">
+                <svg width="100" height="100" style="position:absolute;top:0;left:0"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--border-color)" stroke-width="8"/><circle class="progress-ring__circle" cx="50" cy="50" r="42" fill="none" stroke="var(--color-accent)" stroke-width="8" transform="rotate(-90 50 50)" stroke-linecap="round"/></svg>
+                <div class="progress-ring__text" style="font-weight:var(--font-weight-bold);font-size:var(--font-size-lg)">0%</div>
+                <div style="position:absolute;bottom:-25px;width:100%;text-align:center;font-size:var(--font-size-xs);color:var(--text-tertiary)">Capacity</div>
+              </div>
+            </div>
+            <div style="height:35px"></div> <!-- Spacer for absolute labels -->
+          </div>
+
+          <!-- TODAY'S SCHEDULE -->
+          <div class="chart-card" data-role="admin,user">
+            <div class="chart-card__header"><h3 class="chart-card__title"><i class="fas fa-calendar-day"></i> Today's Schedule</h3></div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);background:rgba(var(--color-primary-rgb),.05);border-radius:var(--radius-sm);border-inline-start:3px solid var(--color-primary)">
+                <div style="min-width:50px;text-align:center"><div style="font-weight:var(--font-weight-bold)">9:00</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">AM</div></div>
+                <div><div style="font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm)">Ballet I — Beginner</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">Studio A • Sofia M. • 14/20 students</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);background:rgba(var(--color-accent-rgb),.05);border-radius:var(--radius-sm);border-inline-start:3px solid var(--color-accent)">
+                <div style="min-width:50px;text-align:center"><div style="font-weight:var(--font-weight-bold)">11:00</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">AM</div></div>
+                <div><div style="font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm)">Hip Hop — All Levels</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">Studio B • Marcus J. • 18/20 students</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);background:rgba(72,187,120,.05);border-radius:var(--radius-sm);border-inline-start:3px solid #48BB78">
+                <div style="min-width:50px;text-align:center"><div style="font-weight:var(--font-weight-bold)">3:00</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">PM</div></div>
+                <div><div style="font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm)">Contemporary — Intermediate</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">Studio A • Amira K. • 12/15 students</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);background:rgba(183,110,121,.05);border-radius:var(--radius-sm);border-inline-start:3px solid var(--color-rose-gold)">
+                <div style="min-width:50px;text-align:center"><div style="font-weight:var(--font-weight-bold)">7:00</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">PM</div></div>
+                <div><div style="font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm)">Salsa Night — Social Dance</div><div style="font-size:var(--font-size-xs);color:var(--text-tertiary)">Main Hall • David C. • Open enrollment</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RECENT STUDENTS TABLE (Admin) -->
+          <div class="dashboard__card dashboard__card--wide chart-card" data-role="admin">
+            <div class="chart-card__header">
+              <h3 class="chart-card__title"><i class="fas fa-user-plus"></i> Recent Enrollments</h3>
+              <a href="#" style="font-size:var(--font-size-sm);color:var(--color-primary);font-weight:var(--font-weight-semibold)">View All</a>
+            </div>
+            <div style="overflow-x:auto">
+              <table class="data-table" style="width:100%">
+                <thead><tr><th data-sort="name">Student</th><th data-sort="class">Class</th><th data-sort="plan">Plan</th><th data-sort="status">Status</th><th data-sort="joined">Joined</th></tr></thead>
+                <tbody>
+                  <tr><td style="display:flex;align-items:center;gap:var(--space-2)"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=32&h=32&fit=crop&crop=face" style="width:28px;height:28px;border-radius:50%;object-fit:cover"> Sarah M.</td><td>Ballet I</td><td>Pro</td><td><span class="status-badge status-badge--active">Active</span></td><td>Apr 5</td></tr>
+                  <tr><td style="display:flex;align-items:center;gap:var(--space-2)"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face" style="width:28px;height:28px;border-radius:50%;object-fit:cover"> James R.</td><td>Hip Hop</td><td>Starter</td><td><span class="status-badge status-badge--active">Active</span></td><td>Apr 4</td></tr>
+                  <tr><td style="display:flex;align-items:center;gap:var(--space-2)"><img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=32&h=32&fit=crop&crop=face" style="width:28px;height:28px;border-radius:50%;object-fit:cover"> Linda P.</td><td>Kids Dance</td><td>Pro</td><td><span class="status-badge status-badge--pending">Trial</span></td><td>Apr 3</td></tr>
+                  <tr><td style="display:flex;align-items:center;gap:var(--space-2)"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face" style="width:28px;height:28px;border-radius:50%;object-fit:cover"> David K.</td><td>Salsa</td><td>Elite</td><td><span class="status-badge status-badge--active">Active</span></td><td>Apr 2</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- INBOX (Admin) -->
+          <div class="dashboard__card dashboard__card--wide chart-card" style="grid-column: span 2; margin-top:var(--space-4)">
+            <div class="chart-card__header">
+              <h3 class="chart-card__title"><i class="fas fa-inbox"></i> Inbox</h3>
+              <a href="#" style="font-size:var(--font-size-sm);color:var(--color-primary);font-weight:var(--font-weight-semibold)">View All</a>
+            </div>
+            <div class="inbox-list" style="display:flex;flex-direction:column;gap:1px;background:var(--border-color);border-radius:var(--radius-sm);overflow:hidden">
+              <div style="display:flex;gap:var(--space-3);padding:var(--space-3);background:var(--bg-card);align-items:center;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background='rgba(var(--color-primary-rgb),0.05)'" onmouseout="this.style.background='var(--bg-card)'">
+                <div style="position:relative">
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face" style="width:40px;height:40px;border-radius:50%;object-fit:cover">
+                  <span style="position:absolute;bottom:0;right:0;width:10px;height:10px;background:#48BB78;border-radius:50%;border:2px solid var(--bg-card)"></span>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:2px">
+                    <span style="font-weight:var(--font-weight-bold);font-size:var(--font-size-sm)">Sarah M.</span>
+                    <span style="font-size:10px;color:var(--text-tertiary)">10:27 AM</span>
+                  </div>
+                  <p style="margin:0;font-size:var(--font-size-xs);color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Perfect, thank you! 💃</p>
+                </div>
+                <span class="notification-badge" style="position:static;width:20px;height:20px;font-size:10px">1</span>
+              </div>
+              <div style="display:flex;gap:var(--space-3);padding:var(--space-3);background:var(--bg-card);align-items:center;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background='rgba(var(--color-primary-rgb),0.05)'" onmouseout="this.style.background='var(--bg-card)'">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" style="width:40px;height:40px;border-radius:50%;object-fit:cover">
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:2px">
+                    <span style="font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm);color:var(--text-primary)">James R.</span>
+                    <span style="font-size:10px;color:var(--text-tertiary)">Yesterday</span>
+                  </div>
+                  <p style="margin:0;font-size:var(--font-size-xs);color:var(--text-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Can I switch my membership to Pro?</p>
+                </div>
+              </div>
+              <div style="display:flex;gap:var(--space-3);padding:var(--space-3);background:var(--bg-card);align-items:center;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background='rgba(var(--color-primary-rgb),0.05)'" onmouseout="this.style.background='var(--bg-card)'">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" style="width:40px;height:40px;border-radius:50%;object-fit:cover">
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:2px">
+                    <span style="font-weight:var(--font-weight-semibold);font-size:var(--font-size-sm);color:var(--text-primary)">David K.</span>
+                    <span style="font-size:10px;color:var(--text-tertiary)">Yesterday</span>
+                  </div>
+                  <p style="margin:0;font-size:var(--font-size-xs);color:var(--text-tertiary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">I'll be late for the Salsa class!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE NAV -->
+    <div class="dashboard__mobile-nav">
+      <button class="dashboard__mobile-nav-item active"><i class="fas fa-chart-pie"></i><span>Overview</span></button>
+      <button class="dashboard__mobile-nav-item"><i class="fas fa-calendar"></i><span>Schedule</span></button>
+      <button class="dashboard__mobile-nav-item"><i class="fas fa-comments"></i><span>Chat</span></button>
+      <button class="dashboard__mobile-nav-item"><i class="fas fa-cog"></i><span>Settings</span></button>
+    </div>
+  </div>
+
+  <script src="../assets/js/modules/theme.js"></script>
+  <script src="../assets/js/modules/rtl.js"></script>
+  <script src="../assets/js/modules/navigation.js"></script>
+  <script src="../assets/js/modules/animations.js"></script>
+  <script src="../assets/js/modules/dashboard.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
