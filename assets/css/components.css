@@ -1218,53 +1218,7 @@
     padding: var(--space-2) 0;
   }
 
-  .navbar__menu-footer {
-    margin-top: auto;
-    padding-top: var(--space-8);
-    border-top: 1px solid var(--border-color);
-    width: 100%;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease 0.5s;
-  }
 
-  .navbar.menu-open .navbar__menu-footer {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .navbar__menu-contact p {
-    font-size: var(--font-size-xs);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-tertiary);
-    margin-bottom: var(--space-2);
-  }
-
-  .navbar__menu-contact a {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-primary);
-    text-decoration: none;
-  }
-
-  .navbar__menu-socials {
-    display: flex;
-    gap: var(--space-4);
-    margin-top: var(--space-6);
-  }
-
-  .navbar__menu-socials a {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(var(--color-primary-rgb), 0.1);
-    color: var(--color-primary);
-    border-radius: var(--radius-circle);
-    font-size: var(--font-size-lg);
-  }
 
   .navbar__mobile-login {
     width: 100%;
